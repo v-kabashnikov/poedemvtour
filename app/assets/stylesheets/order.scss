@@ -1,0 +1,44 @@
+#order-slider{
+
+}
+#order-slider .photo{
+width:200px;
+height:100px;
+border:3px solid #fff;
+}
+
+#order-slider .carousel-inner {
+height: 100%;
+}
+#order-slider .carousel-inner .item {
+left: 0;
+-webkit-transition: 0.6s ease-in-out top;
+-moz-transition: 0.6s ease-in-out top;
+-ms-transition: 0.6s ease-in-out top;
+-o-transition: 0.6s ease-in-out top;
+transition: 0.6s ease-in-out top;
+}
+#order-slider .carousel-inner .active {
+top: 0;
+}
+#order-slider .carousel-inner .next {
+top: 100%;
+}
+#order-slider .carousel-inner .prev {
+top: -100%;
+}
+#order-slider .carousel-inner .next.left,
+#order-slider .carousel-inner .prev.right {
+top: 0;
+}
+#order-slider .carousel-inner .active.left {
+top: -100%;
+}
+#order-slider .carousel-inner .active.right {
+top: 100%;
+}
+
+#order-slider .carousel-control.left,
+#order-slider .carousel-control.right{
+
+}

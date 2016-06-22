@@ -1,0 +1,95 @@
+div.datepicker {
+	position: relative;
+	font-family: 'helveticaneuecyr';
+	font-size: 14px;
+  font-weight:300;
+	width: 100% !important;
+  max-width:600px;
+	height: 147px;
+	position: absolute;
+	cursor: default;
+	top: 0;
+	left: 0;
+	display: none;
+}
+.datepickerContainer {
+	background: transparent;
+	position: absolute;
+}
+
+.datepickerHidden {
+	display: none;
+}
+div.datepicker table {
+	border-collapse:collapse;
+  min-width:250px;
+}
+.datepickerGoPrev{
+  text-align:left;
+  padding-left:10px;
+}
+
+
+.datepickerGoNext{
+  text-align:right;
+  padding-right:10px;
+}
+
+.datepickerMonth{
+  font-size:18px;
+  color:#cdcdcd;
+  font-weight:700;
+  text-align:center;
+}
+
+.datepickerDoW th{
+  color:#cdcdcd;
+  font-weight:300;
+  border-bottom:1px solid #5a5a5a;
+  padding:10px;
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.datepickerDays td{
+  text-align:center;
+}
+
+.datepickerDays a {
+  width:32px;
+  height:32px;
+	line-height: 32px;
+  display: inline-block;
+  color:#fff;
+  border-radius:32px;
+  font-weight:300;
+  margin:2px 0;
+}
+.datepickerDays a:hover{
+  background:#050505;
+  color:#f3c81a;
+  font-weight:normal;
+  text-decoration:none;
+}
+
+table.datepickerViewDays tbody.datepickerMonths,
+table.datepickerViewDays tbody.datepickerYears {
+	display: none;
+}
+table.datepickerViewMonths tbody.datepickerDays,
+table.datepickerViewMonths tbody.datepickerYears,
+table.datepickerViewMonths tr.datepickerDoW {
+	display: none;
+}
+table.datepickerViewYears tbody.datepickerDays,
+table.datepickerViewYears tbody.datepickerMonths,
+table.datepickerViewYears tr.datepickerDoW {
+	display: none;
+}
+.datepickerNotInMonth{
+  opacity:0;
+}
+.datepickerSpace{
+  width:60px;
+  display: block;
+}

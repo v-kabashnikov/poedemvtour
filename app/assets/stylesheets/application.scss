@@ -1,0 +1,83 @@
+/*
+ * This is a manifest file that'll be compiled into application, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+
+*= require bootstrap.scss
+*= require jasny-bootstrap.min.scss
+*= require bootstrap-datetimepicker.scss
+*= require selectize.bootstrap3.scss
+*= require fonts.scss
+*= require header.scss
+*= require footer.scss
+*= require x-input.scss
+*= require site.scss
+*= require slick.scss
+*= require lib/jquery.fancybox.scss
+*= require ion.rangeSlider.scss
+*= require datepicker.scss
+*= require animate.min.scss
+*= require new.scss
+*= require tour-page.scss
+*= require tour-search-preload.scss
+*= require hotel-new.scss
+
+
+ */
+
+@import 'font-awesome';
+.roundtour-place--wrapper {
+  height: auto;
+  max-height:300px;
+  
+}
+.fixing {
+  padding-left: 63px;
+}
+@media only screen and (max-width : 991px) {
+ .fixing {
+  padding-left:0 !important;
+ }
+}
+
+
+.ready-offer {
+  margin: 5px 5px 10px;
+  position: relative;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+  display: block;
+  -moz-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+  height: 118px !important;
+}
+.ready-offer--img img {
+  -moz-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+  width: auto;
+  height: auto;
+  min-height:100%;
+  min-width:100%;
+  display: block;
+}
+#all-header .header-phone_main{
+   margin:10px 0 0;
+   display:block;
+   text-align:right;
+ }
+

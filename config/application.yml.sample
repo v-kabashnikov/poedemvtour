@@ -1,0 +1,23 @@
+default: &default
+  app_name: poedemvtur
+  host: localhost:3000
+  REDIS_URL: redis://localhost:6379
+  admin_email: admin@site.ru
+  password: 12345678
+  database_username: postgres
+  database_password: dbpassword
+  weather_api_url: http://api.worldweatheronline.com
+  weather_api_key: api_key
+development:
+  <<: *default
+test:
+  <<: *default
+production:
+  <<: *default
+  host: poedemvtur.ru
+  admin_email: admin@poedemvtur.ru
+  password: 12345678
+  REDIS_URL: redis://:redis_pass@127.0.0.1:6379
+  database_username: deployer
+  database_password: dbpassword2
+  SECRET_KEY_BASE: 347cea8fd4ec0d6f82c979f678451f8a3710c41f2ab3c936346b31a91f573500309bc78243e940aaf8269599256a6adf4851d00c2bdbd026f60a3d587298e856

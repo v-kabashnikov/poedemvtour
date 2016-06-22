@@ -1,0 +1,67 @@
+<% resorts ||= @resorts %>
+        <% resorts.each do |resort| %>
+          <div class="country-resorts-item country-resorts-item_popular">
+            <a href="#">
+              <div class="country-resorts-item-img hidden-xs">
+                <img src="<%= resort.photo.image.url(:minim) if resort.photo.present? %>" alt="">
+              </div>
+              <div class="country-resorts-item-content">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-4 col-sm-6">
+                        <h3 data-href="/search?utf8=✓&depart_city=Москва&arrive_place=&city_id=832&place_id=<%= resort.id %>&place_type=resort&nights_min=7&nights_max=10&date_min=<%= date_filter %>&date_max=&children=&adult=2" class="country-resorts-item-header country-resorts-item-header2" title="<%= resort.name %>"><%= resort.name %></h3>
+                        <h6 class="country-resorts-item-country"><%= @country.name %></h6>
+                      </div>
+                      <div class="country-resorts-item-img visible-xs">
+                        <img src="<%= resort.photo.image.url(:original) if resort.photo.present? %>" alt="">
+                      </div>
+                      <div class="col-md-8 col-sm-12 no-rightpadding">
+                        <ul class="country-resorts-item-info">
+                          <% if @weather[resort.id].present? %>
+                            <li class="country-resorts-item-info--item country-resorts-item-info--item_weather">
+                              <span class="strong">Погода:</span> <%= @weather[resort.id]['mintempC'] %>°C до <%= @weather[resort.id]['maxtempC'] %>°C
+                            </li>
+                            <li class="country-resorts-item-info--item country-resorts-item-info--item_water">
+                              Вода — <%= @weather[resort.id]['waterTemp_C'] %>°C
+                            </li>
+                          <% end %>
+                          <li class="country-resorts-item-info--item country-resorts-item-info--item_beach">
+                            <span class="strong">Пляж:</span> &nbsp;<%= resort.beach_names %><br>
+                            <span class="strong">Сезон:</span> <%= resort.season_names %>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 hidden-sm">
+                    <div class="country-resorts-item-buttons">
+                      <% if price = @min_prices[resort.id] %>
+                        <button class="btn btn_brown country-resorts-item-price" onclick="location.href='/search?utf8=✓&depart_city=Москва&arrive_place=&city_id=832&place_id=<%= resort.id %>&place_type=resort&nights_min=7&nights_max=10&date_min=<%= date_filter %>&date_max=&children=&adult=2'">
+                          <span><%= number_with_delimiter(price, locale: :ru) %></span><i class="fa fa-rub" aria-hidden="true"></i>
+                        </button>
+                      <% else %>
+                        <button class="btn btn_brown country-resorts-item-price country-resorts-item-price_learn" onclick="location.href='/search?utf8=✓&depart_city=Москва&arrive_place=&city_id=832&place_id=<%= resort.id %>&place_type=resort&nights_min=7&nights_max=10&date_min=<%= date_filter %>&date_max=&children=&adult=2'">Узнать цену</button>
+                      <% end %>
+                      <!--<button class="btn btn_black country-resorts-item-aboutbtn">О курорте</button>-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        <% end %>
+
+        <% if @resorts.next_page.present? %>
+          <div class="country-resorts-button">
+            <a href="#" onclick="paginateResortItems('<%= @resorts.next_page %>'); return false;" class="btn btn_transparent country-resorts-showmore">показать еще</a>
+          </div>
+        <% end %>
+
+<script>
+  $(document).ready(function() {
+    $('.country-resorts-item-header2').click(function() {
+      $(location).attr('href', $(this).data('href'));
+    });
+  });
+</script>

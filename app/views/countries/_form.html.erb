@@ -1,0 +1,111 @@
+          <%= form_tag("/search", method: "get", class: "form-hotelsearch") do %>
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="roundtour-city">
+                    Город вылета: <a href="#" id="city" class="roundtour-city--select">Москва</a>
+                    <div class="roundtour-city--submenu">
+                      <input type="text" name="depart_city" class="form-control roundtour-city--search" value="Москва">
+                      <a href="#" class="roundtour-city--close"><span class="icons-close_orange"></span></a>
+                      <div class="roundtour-city--wrapper scrollbar-inner">
+                        <ul class="roundtour-city--list">
+                          <% DepartCity.all.each do |city| %>
+                            <li data-city-id='<%= city.sletat_id %>'><%= city.name %></li>
+                          <% end %>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                  <div class="form-group roundtour-place--container">
+                    <a href="#" class="roundtour-place">
+                      <span class="icon icons-location_orange"></span>
+                      <span id='place' class="text"><%= @country.name %></span>
+                    </a>
+                    <div class="roundtour-place--submenu">
+                      <input type="text" name="arrive_place" id="place1" autocomplete="off" class="form-control roundtour-place--search" value="" placeholder="Где хотите отдохнуть?">
+                      <span class="roundtour-place--searchicon icons-location_orange"></span>
+                      <div class="roundtour-place--wrapper scrollbar-inner">
+                        <ul id="data" class="roundtour-place--list"></ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-6 no-leftpadding" >
+                  <div class="form-group">
+                    <a href="#" class="roundtour-date hotel-roundtour-date--open" data-open="noblur">
+                      <span class="icon icons-calendar_orange"></span>
+                      <span class="text">
+                        <span class="roundtour-date--months">Выберите дату</span>
+                        <span class="roundtour-date--nights">и количество ночей</span>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-5 col-sm-12 no-leftpadding">
+                  <div class="roundtour-people">
+                    <div class="roundtour-people--active">
+                      <ul class="roundtour-people--adults">
+                        <li>
+                          <a href="#" class="roundtour-people--remove"><i class="fa fa-times"></i></a>
+                          <span class="icons-people-adult_white hidden-xs hidden-sm"></span>
+                          <span class="icons-people-adultsm_white visible-sm visible-xs"></span>
+
+                        </li>
+                        <li>
+                          <a href="#" class="roundtour-people--remove"><i class="fa fa-times"></i></a>
+                          <span class="icons-people-adult_white hidden-xs hidden-sm"></span>
+                          <span class="icons-people-adultsm_white visible-sm visible-xs"></span>
+                        </li>
+                      </ul>
+                      <ul class="roundtour-people--childrens">
+                        <!--
+                        <li>
+                          <a href="#" class="roundtour-people--remove"><i class="fa fa-times"></i></a>
+                          <span class="icons-people-children_white hidden-xs hidden-sm"></span>
+                          <span class="icons-people-childrensm_white visible-sm visible-xs"></span>
+                          <div class="roundtour-people--year">2</div>
+                        </li>
+                        -->
+                      </ul>
+                    </div>
+                    <a href="#" class="roundtour-people--addadults">
+                      <span class="text icons-plus_yellow"></span>
+                      <span class="icon icons-people-adult_yellow hidden-xs hidden-sm"></span>
+                      <span class="icon icons-people-adultsm_yellow visible-sm visible-xs"></span>
+                    </a>
+                    <div class="roundtour-people--addchildrens-wrapper">
+                      <a href="#" class="roundtour-people--addchildrens">
+                        <span class="text icons-plus_yellow"></span>
+                        <span class="icon icons-people-children_yellow hidden-xs hidden-sm"></span>
+                        <span class="icon icons-people-childrensm_yellow visible-sm visible-xs"></span>
+                      </a>
+                      <div class="roundtour-people--years scrollbar-inner">
+                        <ul>
+                          <li>1 год</li>
+                          <li>2 года</li>
+                          <li>3 года</li>
+                          <li>4 года</li>
+                          <li>5 лет</li>
+                          <li>6 лет</li>
+                          <li>7 лет</li>
+                          <li>8 лет</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn hotel-search--send">Найти тур</button>
+                </div>
+              </div>
+            </div>
+            <input id="city-id" type="hidden" name="city_id" value='832' >
+            <input id="place_id" type="hidden" name="place_id" value='<%= @country.id %>'>
+            <input id="place_type" type="hidden" name="place_type" value='country'>
+            <input id="nights_min" type="hidden" name="nights_min" value="7">
+            <input id="nights_max" type="hidden" name="nights_max">
+            <input id="date_min" type="hidden" name="date_min">
+            <input id="date_max" type="hidden" name="date_max">
+            <input id="children" type="hidden" name="children">
+            <input id="adult" type="hidden" name="adult" value="2">
+          <% end %>

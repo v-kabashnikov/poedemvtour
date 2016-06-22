@@ -1,0 +1,251 @@
+<% content_for :head do %>
+<%= stylesheet_link_tag 'about', media: 'all' %>
+<% end %>
+<% content_for :body do %>
+<%= javascript_include_tag 'jquery.min.js' %>
+<%= javascript_include_tag 'jquery.mobile.custom.min.js' %>
+<%= javascript_include_tag 'bootstrap.min.js' %>
+<%= javascript_include_tag 'jasny-bootstrap.min.js' %>
+<%= javascript_include_tag 'moment.js' %>
+<%= javascript_include_tag 'ru.js' %>
+<%= javascript_include_tag 'jquery.easing.js' %>
+<%= javascript_include_tag 'bootstrap-datetimepicker.min.js' %>
+<%= javascript_include_tag 'selectize.min.js' %>
+<%= javascript_include_tag 'jquery.quicksand.js' %>
+<%= javascript_include_tag 'slick.min.js' %>
+<%= javascript_include_tag 'jquery.fancybox.pack.js' %>
+<%= javascript_include_tag 'readmore.js' %>
+<%= javascript_include_tag 'ion.rangeSlider.min.js' %>
+<%= javascript_include_tag 'jquery.scrollbar.min.js' %>
+<%= javascript_include_tag 'datepicker.js' %>
+<%= javascript_include_tag 'about.js' %>
+<%= javascript_include_tag 'main.js' %>
+<% end %>
+<div id="sub-header" style="background-image:url('<%=asset_path("sh-blog.jpg")%>')">
+	<h3 class="hidden-xxs">Пара слов о том, кто мы</h3>
+</div>
+
+<div class="container" id="about-page">
+	<div class="breadcrumbs"><a href="/">Главная</a> - <a href="/about">О компании</a></div>
+	<h1>О компании</h1>
+	<div class="info clearfix">
+		<%= raw @about.try(:about) %>
+	</div>
+
+</div>
+<div class="container-fluid" id="about-comments">
+	<div class="row">
+	<%@feedbacks.each.with_index do |f, index|%>
+	<% if index%5 == 0%>
+			<div class="comment hidden-xs col-sm-12 col-md-8" style="background-image:url('<%=f.background.url(:medium)%>');column-span:2">
+	<%elsif (index-1)%5 == 0%>
+			<div class="comment col-xs-12 hidden-sm col-md-4" style="background-image:url('<%=f.background.url(:medium)%>');column-span:2">
+	<%else%>
+			<div class="comment col-xs-12 hidden-sm col-md-4" style="background-image:url('<%=f.background.url(:medium)%>');column-span:2">
+	<%end%>
+	<div class="clearfix">
+		<h3 class="name"><%=f.name%></h3>
+		<div class="stars">
+			<%(f.rating/2.to_i).times do%>
+			 <img src="<%= asset_path 'hotel_star.png' %>" width="18" height="18" alt="">
+			<%end%>
+			<%(5.to_i - f.rating/2.to_i).times do%>
+			<%end%>	
+		</div>
+	</div>
+	<div class="text">
+		<p><%=f.body%></p>
+	</div>
+	<div class="rating"><%=f.rating%>/10</div>
+	</div>
+	<%end%>
+	</div>
+</div>
+<div class="more">
+  <a href="#" class="<%='hidden ' if @feedbacks.count <= 5%>more-link">Показать еще отзывы</a>
+</div>
+
+
+<div class="container-fluid" id="faq">
+	<h2  class="text-center">Частые вопросы</h2>
+
+	<div class="categories">
+		<div class="hidden-xxs row">
+			<div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
+				<% @categories.each_with_index do |c, i|%>
+				<%if i == 0%>
+						<a class="active" href="#"><%=c.category%></a>
+					<%else%>
+						<a href="#"><%=c.category%></a>
+					<%end%>
+				<%end%>
+			</div>
+		</div>
+
+		<div class="btn-group">
+			<button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span>Все</button>
+			<ul class="dropdown-menu">
+				<% @categories.each_with_index do |c, i|%>
+					<%if i == 0%>
+						<li><a class="active" href="#"><%=c.category%></a></li>
+					<%else%>
+						<li><a href="#"><%=c.category%></a></li>
+					<%end%>
+				<%end%>
+			</ul>
+		</div>
+	</div>
+	<% @categories.each do |q|%>
+	<div class="questions row">
+		<% q.questions.each do |q|%>
+		<div class="item clearfix">
+			<a class="question"><div class="container"><%=q.head%></div></a>
+			<div class="container">
+				<div class="answer"><%=q.body%></div>
+			</div>
+		</div>
+		<%end%>
+	</div>
+	<%end%>
+
+</div>
+
+
+
+<div class="container-fluid" id="before-footer">
+	<div class="row" style="height: 100%;">
+		<div class="col-sm-12 col-md-8 col-lg-9" id="no-results">
+			<h3>Не нашли подходящий тур?</h3>
+			<div class="info">Оставьте заявку и мы подберем для Вас самые лучшие предложения</div>
+			<div class="btn btn-blue" data-recalc="false" data-toggle="offcanvas" data-target="#selection-tour" data-canvas="#site-wrap">Заполнить</div>
+		</div>
+		<div class="hidden-xs hidden-sm col-md-4 col-lg-3 carousel slide" id="brand-slider" data-ride="carousel">
+			<!-- Indicators -->
+			<ol class="carousel-indicators">
+				<li data-target="#brand-slider" data-slide-to="0" class="active"></li>
+				<li data-target="#brand-slider" data-slide-to="1"></li>
+			</ol>
+
+			<!-- Wrapper for slides -->
+			<div class="carousel-inner">
+				<div class="item active">
+					<div class="brand">
+						<div>
+
+							<%=image_tag 'DEMO/brand-slide-1.png' %>
+							<span class="c-name">Aegean</span>
+						</div>
+					</div>
+					<div class="brand">
+						<div>
+							<span class="c-name">Аэрофлот</span>
+							<%=image_tag 'DEMO/brand-slide-2.png' %>
+						</div>
+					</div>
+					<div class="brand">
+						<div>
+							<%=image_tag 'DEMO/brand-slide-3.png' %>
+							<span class="c-name">Tez Tour</span>
+						</div>
+					</div>
+					<div class="brand">
+						<div>
+							<%=image_tag 'DEMO/brand-slide-4.png' %>
+							<span class="c-name">Visa</span>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div id="footer-map" class="frame-map">
+  <!--
+  <script type="text/javascript" charset="utf-8" src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=QLHN4-YsKcxeTTeAJgGm34YMzohbIMKj&width=100%&height=600&lang=ru_RU&sourceType=constructor"></script>
+-->
+<script src="https://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+<script type="text/javascript">
+        ymaps.ready(init); // карта соберется после загрузки скрипта и элементов
+        var myMap; // заглобалим переменную карты чтобы можно было ею вертеть из любого места
+        function init () { // функция - собиралка карты и фигни
+            myMap = new ymaps.Map("map", { // создаем и присваиваем глобальной переменной карту и суем её в див с id="map"
+                    center: [55.7375,37.6293], // ну тут центр
+                    //behaviors: ['default', 'scrollZoom'], // скроллинг колесом
+                    zoom: 15 // тут масштаб
+                  });
+            myMap.controls // добавим всяких кнопок, в скобках их позиции в блоке
+        		.add('zoomControl', { left: 5, top: 5 }) //Масштаб
+        		.add('typeSelector'); //Список типов карты
+        		/* Создаем кастомные метки */
+	        myPlacemark0 = new ymaps.Placemark([55.7375,37.6293], { // Создаем метку с такими координатами и суем в переменную
+	                balloonContent: '<div class="ballon"><p class="ballon-location">ул. Пятницкая, д. 43, стр. 3, офис 5, г. Москва, 119017</p><div class="ballon-phone">8 800 500-53-16</div><a href="#" class="ballon-email">hello@poedenvtur.ru</a><span class="ballon-close" onclick="myMap.balloon.close()"><i class="fa fa-times"></i></span></div>' // сдесь содержимое балуна в формате html, все стили в css
+	              }, {
+	            	iconImageHref: '<%=asset_path('marker.png')%>', // картинка иконки
+	            	iconImageSize: [49, 68], // размер иконки
+	            	iconImageOffset: [-24, -68], // позиция иконки
+               balloonContentSize: [588, 316], // размер нашего кастомного балуна в пикселях
+               balloonLayout: "default#imageWithContent", // указываем что содержимое балуна кастомная херь
+               balloonImageOffset: [-65, -89], // смещание балуна, надо подогнать под стрелочку
+               balloonImageSize: [588, 316], // размер картинки-бэкграунда балуна
+               balloonShadow: false,
+               balloonAutoPan: false // для фикса кривого выравнивания
+             });
+/* Добавляем */
+myMap.geoObjects
+.add(myPlacemark0);
+
+/* Фикс кривого выравнивания кастомных балунов */
+myMap.geoObjects.events.add([
+	'balloonopen'
+	], function (e) {
+		var geoObject = e.get('target');
+		myMap.panTo(geoObject.geometry.getCoordinates(), {
+			delay: 0
+		});
+	});
+}
+</script>
+<div id="map"></div>
+</div>
+<nav id="selection-tour" class="navmenu navmenu-default navmenu-fixed-right offcanvas" role="navigation">
+
+	<div class="hotel-addcomment-bar">
+
+		<h3>Заполнить форму</h3>
+
+		<form class="hotel-addcomment-form" action="/form"> 
+
+			<div class="form-group">
+
+				<input type="text" class="form-control" placeholder="Имя" name="name">
+
+			</div>
+
+			<div class="form-group">
+
+				<input type="text" class="form-control" placeholder="E-mail" name="email">
+
+			</div>
+
+			<div class="form-group">
+
+				<h4>Новости какой страны<br> хотели бы получать?</h4>
+
+				<input type="text" class="form-control" placeholder="" name="body">
+
+			</div>
+
+			<div class="hotel-addcomment-btn">
+
+				<button class="btn btn-orange btn-block">Отправить</button>
+
+			</div>
+
+		</form>
+
+	</div>
+
+</nav>

@@ -1,0 +1,270 @@
+@font-face {
+    font-family:GothamProBold;
+    src: url(../fonts/GothaProBol.otf);
+}
+@font-face {
+    font-family:HelveticaNeue;
+    src: url(../fonts/HelveticaNeue.dfont);
+}
+@font-face {
+    font-family:GeorgiaItalic;
+    src: url(../fonts/GeorgiaItalic.ttf);
+}
+
+
+.back {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background: url(../img/pattern.png);
+  background-size: contain;
+  opacity: 0.37;
+}
+.container {
+  position: relative;
+  z-index: 2;
+}
+body {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  background: url(../img/bg.png);
+}
+
+
+.header {
+}
+
+.title {
+  text-align: center;
+ font-family: GothamProBold;
+   margin: 0;
+   padding: 0;
+}
+h2   {
+  margin-top: 27px;
+  margin-bottom: 3px;
+  padding: 0;
+  font-weight: lighter;
+}
+
+.defis {
+  position: relative;
+  background: black;
+  height: 3px;
+  display: inline-block;
+  width: 22px;
+  margin: 10px;
+  top: 4px;
+
+}
+
+.subtitle {
+  text-align: center;
+  font-family: Georgia;
+  font-style: italic;
+  font-size: 12px;
+  margin: 0;
+  padding:0;
+  font-weight: lighter;
+}
+
+.mainBody {
+  position: relative;
+  display: inline-block;
+  width: 500px;
+  z-index: 10;
+  margin: 50px;
+  text-align: center;
+}
+
+.top {
+  width: 500px;
+  display: inline-block;
+  background: url(../img/STROKE.png);
+  height: 9px;
+  opacity: 1;
+  z-index: 10;
+  position: relative;
+  top: 13px;
+}
+.mailContent {
+  position: relative;
+  z-index: 3;
+  display: inline-block;
+  width: 500px;
+  text-align: center;
+  background: white;
+  padding-bottom: 100px;
+}
+.mailContent .inside {
+  width: 70%;
+  margin: 50px auto;
+}
+.mailContent h3 {
+  margin: 0;
+  padding: 0;
+  font-family: HelveticaNeue;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  margin: 30px 0px;
+  font-size: 28px;
+  color: #a73107;
+}
+
+.textContent {
+  text-align: left;
+  font-family:HelveticaNeue;
+}
+
+.textContent b {
+  font-family:HelveticaNeue;
+  position: relative;
+  margin: 0 0 1px 0px;
+  display: inline-block;
+}
+
+
+.pinside {
+  font-weight: lighter;
+  font-family:HelveticaNeue;
+  margin: 0px;
+  display: inline-block;
+  text-align: left;
+  width: 100%;
+  margin-bottom:  10px;
+}
+
+
+.backBlue {
+
+  position: relative;
+  display: inline-block;
+  height: 268px;
+  width: 530px;
+  top: -290px;
+  background: url(../img/backBlue.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+.mainBody {
+  width: 780px;
+}
+
+.frontleftBlue {
+  background: url(../img/blueleft.png);
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: -406.9px auto;
+  height: 268px;
+  z-index: 4;
+  width: 530px;
+}
+
+.frontrightBlue {
+  background: url(../img/blueright.png);
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  margin: 138.5px auto;
+  height: 268px;
+  z-index: 4;
+  width: 530px;
+}
+
+.leftInfo {
+  font-family: Georgia;
+  font-style: italic;
+  color: white;
+
+
+  display: inline-block;
+  float: left;
+  width: 200px;
+  text-align: left;
+  margin: 80px 30px;
+}
+
+.leftInfoText {
+    border-bottom: 1px dashed white;
+    display: inline-block;
+    margin: 5px;
+    font-size: 14px;
+    padding-right: 10px;
+}
+
+.rightInfo {
+  font-family: Georgia;
+  font-style: italic;
+  color: white;
+  display: inline-block;
+  float: left;
+  width: 200px;
+  text-align: right;
+  margin: 120px 30px;
+}
+
+.rightInfoTextEmail {
+  font-family:HelveticaNeue;
+  color: white;
+  font-weight: lighter;
+  opacity: 0.9;
+  font-style: normal;
+  border-bottom: 1px solid white;
+  display: inline-block;
+  margin: 0;
+  font-size: 14px;
+}
+
+.rightInfoTextNumber {
+  color: white;
+  font-weight: bold;
+  font-family:HelveticaNeue;
+  font-style: normal;
+  display: inline-block;
+  margin: 10px 0;
+
+  font-size: 20px;
+}
+.iconwhatsapp {
+  position: relative;
+  top: 5px;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  margin:0px 15px 0 0px;
+  background: url(../img/whatsap.png);
+  background-size: 100% 100%;
+}
+.rightInfoText {
+  margin: 0;
+}
+
+.rightInfoText li {
+  display: inline-block;
+  list-style-type: none;
+  margin: 4px;
+  width: 20px;
+  height: 20px;;
+}
+
+.rightInfoText li:hover {
+  border-bottom: 1px solid transparent;
+  padding: 1px;
+}
+
+.lastText {
+  font-style: 20px;
+  font-family: georgia;
+  margin: -160px 0;
+  opacity: 0.7;
+  width: 100%;
+
+}

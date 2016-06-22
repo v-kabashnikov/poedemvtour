@@ -1,0 +1,48 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'operator', media: 'all' %>
+<% end %>
+<% content_for :body do %>
+  <%= javascript_include_tag 'jquery.min.js' %>
+  <%= javascript_include_tag 'jquery.mobile.custom.min.js' %>
+  <%= javascript_include_tag 'bootstrap.min.js' %>
+  <%= javascript_include_tag 'jasny-bootstrap.min.js' %>
+  <%= javascript_include_tag 'moment.js' %>
+  <%= javascript_include_tag 'ru.js' %>
+  <%= javascript_include_tag 'jquery.easing.js' %>
+  <%= javascript_include_tag 'bootstrap-datetimepicker.min.js' %>
+  <%= javascript_include_tag 'selectize.min.js' %>
+  <%= javascript_include_tag 'jquery.quicksand.js' %>
+  <%= javascript_include_tag 'slick.min.js' %>
+  <%= javascript_include_tag 'jquery.fancybox.pack.js' %>
+  <%= javascript_include_tag 'datepicker.js' %>
+  <%= javascript_include_tag 'main.js' %>
+<% end %>
+<div id="sub-header" style="background-image:url('<%=asset_path("DEMO/sh-blog.jpg")%>')">
+	<h3>Конкретный туроператор</h3>
+</div>
+<div class="container">
+	<div class="breadcrumbs"><a href="/">Главная</a> - <a href="/operators">Туроператоры</a></div>
+	<a href="#" class="pull-right operator-link hidden-xs"><span class="glyphicon glyphicon-link"></span><%=@operator.site%></a>
+
+	<h1>Туроператор <%=@operator.name%></h1>
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-4 col-md-4">
+			<div class="operator-logo"><%= image_tag(@operator.logo.url)%></div>
+		</div>
+		<div class="col-xs-12 col-sm-8 col-md-8">
+			<p><b>Фактический адрес:</b><br><%=@operator.address%></p>
+
+			<p><b><%=@operator.phone%></b></p>
+
+			<p><%=@operator.text%></p>
+		</div>
+		<div class="col-xs-12 text-center">
+			<a href="#" class="visible-xs-inline-block operator-link">Перейти на сайт</a>
+		</div>
+	</div>
+	<h2 style="height:20px;"></h2>
+
+	
+	
+</div>	

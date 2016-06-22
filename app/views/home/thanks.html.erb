@@ -1,0 +1,71 @@
+<% content_for :body do %>
+<%= javascript_include_tag 'jquery.min.js' %>
+<%= javascript_include_tag 'jquery.mobile.custom.min.js' %>
+<%= javascript_include_tag 'bootstrap.min.js' %>
+<%= javascript_include_tag 'jasny-bootstrap.min.js' %>
+<%= javascript_include_tag 'moment.js' %>
+<%= javascript_include_tag 'ru.js' %>
+<%= javascript_include_tag 'jquery.easing.js' %>
+<%= javascript_include_tag 'bootstrap-datetimepicker.min.js' %>
+<%= javascript_include_tag 'selectize.min.js' %>
+<%= javascript_include_tag 'jquery.quicksand.js' %>
+<%= javascript_include_tag 'slick.min.js' %>
+<%= javascript_include_tag 'jquery.fancybox.pack.js' %>
+<%= javascript_include_tag 'ion.rangeSlider.min.js' %>
+<%= javascript_include_tag 'jquery.scrollbar.min.js' %>
+<%= javascript_include_tag 'datepicker.js' %>
+<%= javascript_include_tag 'base.js' %>
+<%= javascript_include_tag 'hotel.js'%>
+<%= javascript_include_tag 'main.js'%>
+<%= javascript_include_tag 'tour-filter.js'%>
+<%= javascript_include_tag 'tour-page.js'%>
+<% end %>
+<div id="sub-header" class="sub-header_hotel xxs-compact" style="background-image:url('<%= asset_path("bg-sub-header-hotel.jpg") %>')">
+</div>
+<div class="tour-page tour-page_2">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+          <div class="col-md-11 col-md-offset-1 xs-nopadding">
+            <div class="tour-page_2-container">
+              <h1 class="tour-page--title"><%= @hotel.name.upcase %></h1>
+              <h5 class="tour-page--location"><%= @hotel.resort.country.name %>, <%= @hotel.airport_distance %> км от аэропорта</h5>
+              <div class="tour-page--rating visible-xs">
+                <ul class="stars">
+                  <% @hotel.stars_count.times do %>
+                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                  <% end %>
+                </ul>
+                <span class="number">~ <%= @hotel.hotel_rate.round(1) %></span>
+              </div>
+              <div class="tour-page-info tour-page_2-info row">
+                <div class="col-md-8 col-sm-8">
+                  <ul class="tour-page--stages">
+                    <li class="tour-page--stage tour-page--stage_success"></li>
+                    <li class="tour-page--stage tour-page--stage_success"></li>
+                    <li class="tour-page--stage tour-page--stage_current">Шаг 3</li>
+                  </ul>
+                </div>
+                <div class="col-md-4 col-sm-4 text-right no-rightpadding hidden-xs">
+                  <div class="tour-page--rating">
+                    <ul class="stars">
+                      <% @hotel.stars_count.times do %>
+                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                      <% end %>
+                    </ul>
+                    <span class="number">~ <%= @hotel.hotel_rate.round(1) %></span>
+                  </div>
+                </div>
+              </div>
+            <div class="tour-page-form" style="height: 500px;"  >
+              <h4> Спасибо! Ваша заявка успешно оформлена.</h1>
+              <h5>В ближайшее время с Вами свяжется наш специалист.</h2>
+            </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

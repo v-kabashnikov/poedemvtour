@@ -1,0 +1,35 @@
+.operator-logo{
+height:165px;
+outline:1px solid #d1d1d1;
+position:relative;
+overflow:hidden;
+}
+.operator-logo img{
+position:absolute;
+max-width:90%;
+max-height:90%;
+left:0;
+right:0;
+top:0;
+bottom:0;
+margin:auto;
+z-index:1;
+}
+.operator-link{
+font-family: 'Roboto', sans-serif;
+font-size: 16px;
+font-weight: 700;
+color: #eb8c40;
+margin-top: 30px;
+margin-bottom: 25px;
+}
+.operator-link .glyphicon{
+text-decoration: none !important;
+margin-right: 10px;
+vertical-align: middle;
+font-weight: 100;
+}
+.operator-link.visible-xs-inline-block{
+border:1px solid;
+padding:10px 35px;
+}

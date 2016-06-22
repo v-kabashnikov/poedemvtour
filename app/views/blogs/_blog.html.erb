@@ -1,0 +1,9 @@
+  <div data-category="aqua chld intr" class="filtered col-lg-3 col-md-4 col-sm-6 col-xs-12 record" data-id="<%= blog.id %>">
+      <a href="/blog/<%=blog.id%>" class="blog-list-item">
+      
+        <div class="blog-item-thumb"><%= image_tag(blog.preview.url)%></div>
+      
+        <h2><%=blog.title%></h2>
+        <div class="blog-item-date"><%=blog.created_at%></div>
+      </a>
+    </div>

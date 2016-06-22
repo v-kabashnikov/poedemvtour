@@ -1,0 +1,762 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'blog', media: 'all' %>
+<% end %>
+<% content_for :body do %>
+  <%= javascript_include_tag 'jquery.min.js' %>
+  <%= javascript_include_tag 'jquery.mobile.custom.min.js' %>
+  <%= javascript_include_tag 'bootstrap.min.js' %>
+  <%= javascript_include_tag 'jasny-bootstrap.min.js' %>
+  <%= javascript_include_tag 'moment.js' %>
+  <%= javascript_include_tag 'ru.js' %>
+  <%= javascript_include_tag 'jquery.easing.js' %>
+  <%= javascript_include_tag 'bootstrap-datetimepicker.min.js' %>
+  <%= javascript_include_tag 'selectize.min.js' %>
+  <%= javascript_include_tag 'jquery.quicksand.js' %>
+  <%= javascript_include_tag 'slick.min.js' %>
+  <%= javascript_include_tag 'jquery.fancybox.pack.js' %>
+  <%= javascript_include_tag 'datepicker.js' %>
+  <%= javascript_include_tag 'ion.rangeSlider.min.js' %>
+  <%= javascript_include_tag 'jquery.scrollbar.min.js' %>
+  <%= javascript_include_tag 'hotel.js' %>
+  <%= javascript_include_tag 'readmore.js' %>
+  <%= javascript_include_tag 'main.js' %>
+  <%= javascript_include_tag 'tour-filter.js' %>
+  <%= javascript_include_tag 'jquery.maskedinput.min.js' %>
+
+<% end %>
+<%= stylesheet_link_tag 'style-country', media: 'all' %>
+<script>
+<%if @country.ad_delay%>
+  <%delay = @country.ad_delay.to_i + 15000%>
+<%else%>
+  <%delay = 18000%>
+<%end%>
+setTimeout(hidePreload,<%=delay%>);
+  function hidePreload(){
+    $('.tour-search-preload--advertising').fadeOut(500);
+  }
+function meal(type)
+{
+  switch(type)
+  {
+    case "BB":
+    return "ЗАВТРАКИ";
+    break;
+    case "(HB/HB+)":
+    return "ДВУХРАЗОВОЕ";
+    break;
+    case "HB":
+    return "ДВУХРАЗОВОЕ";
+    break;
+    case "HB+":
+    return "ДВУХРАЗОВОЕ";
+    break;
+    case "FB":
+    return "ТРЕХРАЗОВОЕ";
+    break;
+    case "FB+":
+    return "ТРЕХРАЗОВОЕ";
+    break;
+    case "(FB/FB+)":
+    return "ТРЕХРАЗОВОЕ";
+    break;
+    case "AL":
+    return "ВСЕ ВКЛЮЧЕНО";
+    break;
+    case "(AL/UAL) ":
+    return "ВСЕ ВКЛЮЧЕНО";
+    break;
+    case "RO":
+    return "БЕЗ ПИТАНИЯ";
+    break;
+    case "AI":
+    return "ВСЕ ВКЛЮЧЕНО";
+    case "UAL":
+    return "УЛЬТРА ВСЕ ВКЛЮЧЕНО";
+    break;
+  }
+}
+
+  function loadMore(){
+          var requestId = $('#requestId').val();
+          var loaded = $(".tour-block").length
+          $.ajax({
+          url: "/load_more",
+          data: {
+            loaded: loaded,
+            requestId: requestId
+          },
+          success: function(data){
+            hotels = data["hotels"];
+            showHotels(hotels, requestId);
+            //$('#total').html('Найдено '+ data["total"] + ' отелей')
+            if((hotels.length + loaded == data["total"] && data["status"] == 'finished') || (data["status"] == 'finished' && data["hotels"].length == 0)){
+              $('.more').remove();
+            }
+          }
+        })
+        }
+
+        function showHotels( hotels, requestId ){
+            var req = requestId == undefined ? "" : "?requestId=" + requestId;
+              for(var i=0; i<hotels.length; i++){
+                var stars = "";
+                for(var j = 1; j <= hotels[i]['stars_count']; j++){
+
+                  stars += ' <img src="<%= asset_path 'star.png' %>" width="12" height="12" alt="">'
+                }
+                if (i == 3) {
+                  var hotel = '<%= j render 'feedback_phone' %>';
+                } else if (i == 5) {
+                  var hotel = '<%= j render 'subscribe' %>';
+                } else {
+                // var hotel = hotels[i];
+              var hotel = '<div class="col-xs-12 col-sm-6 col-md-6 col-large-4 \
+              tour-column"> \
+      <div class="tour-block tour-block-new"> \
+            <div class="tour-header row"> \
+            <div class="col-md-7"> \
+            <h2><a href="/hotel/' + hotels[i]['id'] + req + '"> \
+            ' + hotels[i]['name'] + ' </a></h2> \
+            </div> \
+              <div class="tour-rating col-md-5"> \
+                <div class="tour-rating--star">' + stars +'</div> \
+                <span class="tour-rating--num">~ \
+                ' + hotels[i]['rating'].toFixed(1) + '</span> \
+              </div> \
+            </div> \
+            <div class="clearfix"></div> \
+            <div class="tour-desc">' + hotels[i]['position_info'] + ' \
+            </div> \
+        <div class="thumb"> \
+          <a href="/hotel/' + hotels[i]['id'] + req + '&depart_city=' + <%=@depart_city%> +'" class="thumb-link"> \
+          <img src="' + hotels[i]['image_url'] + '"></a> \
+          <a href="#" class="like like-left"></a> \
+        </div> \
+        <div class="tour-footer"> \
+          <div class="col-sm-5"> \
+            <div class="tour-eat"> \
+              <span>' + meal(hotels[i]['meal']) + '</span> \
+          ' + hotels[i]['depart_date'] + ' на ' + hotels[i]['nights'] + ' ночей \
+            </div> \
+          </div> \
+          <div class="col-sm-7"> \
+            <div class="text-right"> \
+            <a href="/hotel/' + hotels[i]['id'] + req + ' \
+            #comments" class="tour-commentlink"> \
+            Отзывы (' + hotels[i]['reviews_count'] + ')</a> \
+            </div> \
+            <div class="text-right"> \
+              <a href="/hotel/' + hotels[i]['id'] + req + '" \
+               class="tour-price"> \
+                ' + hotels[i]['price'] + '<i class="fa fa-rub"></i> \
+              </a> \
+            </div> \
+          </div> \
+        </div> \
+      </div> \
+    </div>'
+  }
+                $('#hotels').append(hotel);
+              }
+              if (hotels.length <= 3) {
+                $('#hotels').append('<%= j render 'feedback_phone' %>');
+              }
+              if (hotels.length < 5) {
+                $('#hotels').append('<%= j render 'subscribe' %>');
+              }
+            }
+
+              //$('.tour-filter--container').stop(true).slideUp(200);
+              //$('.tour-filter--show').delay(150).stop(true).animate({'opacity' : 1},150);
+
+</script>
+<%def video_code(video)%>
+<%regex = /^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/%>
+<%video.scan(regex).flatten.first if video%>
+<%end%>
+<%if @country.search_background.url != "/search_backgrounds/original/missing.png"%>
+  <div id="sub-header" style="background-image:url('<%=@country.search_background.url%>')">
+<%else%>
+  <div id="sub-header" style="background-image:url('<%= asset_path 'DEMO/sh-tour-filtered.jpg' %>')">
+<%end%>
+  <h3><img src="<%= @country.flag_link%>"  alt=""> <%= @country.name %></h3>
+</div>
+<div class="tour-filter">
+  <a href="#" class="tour-filter--show"><span>Развернуть фильтр <i class="icons-arrow-down_white"></i></span></a>
+  <div class="tour-filter--container">
+    <div class="container">
+      <form action="" class="form-tourfilter">
+        <div class="row">
+          <div class="col-md-2 col-sm-6">
+            <h4 class="tour-filter--header">
+              <span class="icon icons-filter-eat"></span>
+              <span class="text">Питание</span>
+            </h4>
+            <div class="tour-filter--inputs">
+              <ul class="tour-filter--checkboxs">
+                <li>
+                  <label class="custom-checkbox">
+                    <input type="checkbox" checked name="eat1">
+                    <span>Завтраки</span>
+                  </label>
+                </li>
+                <li>
+                  <label class="custom-checkbox">
+                    <input type="checkbox" checked name="eat2">
+                    <span>Двухразовое</span>
+                  </label>
+                </li>
+                <li>
+                  <label class="custom-checkbox">
+                    <input type="checkbox" checked name="eat3">
+                    <span>Трёхразовое</span>
+                  </label>
+                </li>
+                <li>
+                  <label class="custom-checkbox">
+                    <input type="checkbox" checked name="eat4" value="111">
+                    <span>Всё включено</span>
+                  </label>
+                </li>
+                <li>
+                  <label class="custom-checkbox">
+                    <input type="checkbox" name="eat5">
+                    <span>Без питания</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6" style="min-height:196px">
+            <h4 class="tour-filter--header">
+              <span class="icon icons-filter-class"></span>
+              <span class="text">Класс отеля</span>
+            </h4>
+            <div class="tour-filter--inputs">
+              <ul class="tour-filter--checkboxs">
+                <li>
+                  <label class="custom-checkbox filter-checkbox_class">
+                    <input type="checkbox" name="class1" checked>
+                    <span>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                    </span>
+                  </label>
+                </li>
+                <li>
+                  <label class="custom-checkbox filter-checkbox_class">
+                    <input type="checkbox" name="class2" checked>
+                    <span>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                    </span>
+                  </label>
+                </li>
+                <li>
+                  <label class="custom-checkbox filter-checkbox_class">
+                    <input type="checkbox" name="class3" checked>
+                    <span>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                    </span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <h4 class="tour-filter--header">
+              <span class="icon icons-filter-price"></span>
+              <span class="text">Цена в рублях</span>
+            </h4>
+            <div class="tour-filter--inputs">
+              <div class="tour-filter--price">
+                <div class="row">
+                  <div class="col-md-5 col-sm-5 col-xs-5">
+                    <input type="text" class="form-control tourFilterPriceMin" name="priceMin" value="10 000">
+                  </div>
+                  <div class="col-md-2 col-sm-2 col-xs-2 no-leftpadding no-rightpadding">
+                    <span class="sep"></span>
+                  </div>
+                  <div class="col-md-5 col-sm-5 col-xs-5">
+                    <input type="text" class="form-control tourFilterPriceMax" name="priceMax" value="15 000 000">
+                  </div>
+                </div>
+                <div class="tour-filter--price-slider">
+                  <input type="text" class="tour-filter-price" name="filter-price" value="" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <h4 class="tour-filter--header">
+              <span class="icon icons-filter-beach"></span>
+              <span class="text">Пляж</span>
+            </h4>
+            <div class="tour-filter--inputs">
+              <ul class="tour-filter--checkboxs">
+                <li>
+                  <label class="custom-checkbox">
+                    <input type="checkbox" checked name="beach1">
+                    <span>Первая пляжная линия</span>
+                  </label>
+                </li>
+                <li>
+                  <label class="custom-checkbox">
+                    <input type="checkbox" checked name="beach2">
+                    <span>Вторая пляжная линия</span>
+                  </label>
+                </li>
+                <li>
+                  <label class="custom-checkbox">
+                    <input type="checkbox" checked name="beach3">
+                    <span>Третья пляжная линия</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="tour-filter--line">
+      <a href="#" class="tour-filter--hide"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+    </div>
+  </div>
+</div>
+
+<div class="container" id="tour-filtered" style="min-height:300px;">
+  <%= hidden_field_tag 'requestId', @request.request_id %>
+  <div class="tour-search-preload">
+    <div class="tour-search-preload--spinner">
+      <span class="icon"></span>
+      <span class="text">Загружаем туры на <%=@people%></span>
+    </div>
+    <br>
+    <div class="tour-search-preload--advertising">
+    <%if @country.banner.url == "/banners/original/missing.png" %>
+    <%else%>
+       <%= image_tag(@country.banner.url)%>
+    <%end%>
+    </div>
+    <br>
+    <div class="tour-search-preload--advertising video">
+    <%if @country.youtube_link%>
+    <%if !@country.youtube_link.empty?%>
+      <%code = video_code(@country.youtube_link) %>
+       <iframe width="560" height="315" src="https://www.youtube.com/embed/<%=code%>?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+    <%end%>
+    <%end%>
+
+    </div>
+  </div>
+  <div class="row">
+    <h2 class="col-xs-12 roboto-light tour-filtered--header" id="total"></h2>
+  </div>
+  <div class="row" id="hotels">
+  </div>
+</div>
+<div id="here">
+</div>
+
+<script>
+function showHotels( hotels, requestId ){
+            var params = '&depart_city=<%=@depart_city%>&city_id=<%=@city_id%>&place_id=<%=@place_id%>&place_type=<%=@place_type%>&nights_min=<%=@nights_min%>&nights_max=<%=@nights_max%>&children=<%=@children%>&arrive_place=<%=@arrive_place%>&adults=<%=@adults%>'
+            var req = requestId == undefined ? "" : "?requestId=" + requestId;
+              for(var i=0; i<hotels.length; i++){
+                var stars = "";
+                for(var j = 1; j <= hotels[i]['stars_count']; j++){
+                  stars += '<img src="<%= asset_path 'star.png' %>" width="12" height="12" alt="">'
+                }
+                if (i == 3) {
+                  var hotel = '<%= j render 'feedback_phone' %>';
+                } else if (i == 6) {
+                  var hotel = '<%= j render 'subscribe' %>';
+                } else {
+                // var hotel = hotels[i];
+              var hotel = '<div class="col-xs-12 col-sm-6 col-md-6 col-large-4 \
+              tour-column"> \
+      <div class="tour-block tour-block-new"> \
+            <div class="tour-header row"> \
+            <div class="col-md-7"> \
+            <h2><a href="/hotel/' + hotels[i]['id'] + req + '"> \
+            ' + hotels[i]['name'] + ' </a></h2> \
+            </div> \
+              <div class="tour-rating col-md-5"> \
+                <div class="tour-rating--star">' + stars +'</div> \
+                <span class="tour-rating--num">~ \
+                ' + hotels[i]['rating'].toFixed(1) + '</span> \
+              </div> \
+            </div> \
+            <div class="clearfix"></div> \
+            <div class="tour-desc">' + hotels[i]['position_info'] + ' \
+            </div> \
+        <div class="thumb"> \
+          <a href="/hotel/' + hotels[i]['id'] + req + params +'" class="thumb-link"> \
+          <img src="' + hotels[i]['image_url'] + '"></a> \
+          <a href="#" class="like like-left"></a> \
+        </div> \
+        <div class="tour-footer"> \
+          <div class="col-sm-5"> \
+            <div class="tour-eat"> \
+              <span>' + meal(hotels[i]['meal']) + '</span> \
+          ' + hotels[i]['depart_date'] + ' на ' + hotels[i]['nights'] + ' ночей \
+            </div> \
+          </div> \
+          <div class="col-sm-7"> \
+            <div class="text-right"> \
+            <a href="/hotel/' + hotels[i]['id'] + req + ' \
+            #comments" class="tour-commentlink"> \
+            Отзывы (' + hotels[i]['reviews_count'] + ')</a> \
+            </div> \
+            <div class="text-right"> \
+              <a href="/hotel/' + hotels[i]['id'] + req + '" \
+               class="tour-price"> \
+                ' + hotels[i]['price'] + '<i class="fa fa-rub"></i> \
+              </a> \
+            </div> \
+          </div> \
+        </div> \
+      </div> \
+    </div>'
+  }
+                $('#hotels').append(hotel);
+              }
+              if (hotels.length <= 3) {
+                $('#hotels').append('<%= j render 'feedback_phone' %>');
+              }
+              if (hotels.length <= 6) {
+                $('#hotels').append('<%= j render 'subscribe' %>');
+              }
+            }
+
+
+$(document).ready(function(){
+  if($('div').is('.tour-filter')){
+    var filter = {
+      $filter : $('.tour-filter'),
+      $filterHeight : $('.tour-filter-height'),
+      position : $('.tour-filter').offset().top,
+      scrollDocument : function(){
+        return $(document).scrollTop();
+      },
+      show : function(){
+        $('.tour-filter--container').stop(true).slideDown(200);
+        this.$filterHeight.stop(true).animate({
+          'height' : 226
+        },200);
+        $('.tour-filter--show').stop(true).animate({'opacity' : 0},150);
+      },
+      hide : function(){
+        $('.tour-filter--container').stop(true).slideUp(200);
+        this.$filterHeight.stop(true).animate({
+          'height' : 42
+        },200);
+        $('.tour-filter--show').delay(150).stop(true).animate({'opacity' : 1},150);
+      },
+      scroll : function(){
+        this.logicFixed();
+      },
+      logicFixed : function(){
+        if(this.scrollDocument() > this.position - 63){
+          if($(window).width()>991){
+            this.addFixed();
+          }else{
+            this.removeFixed();
+          }
+        }else{
+          this.removeFixed();
+        }
+      },
+      addFixed : function(){
+        this.$filter.addClass('tour-filter_fixed');
+        this.$filterHeight.fadeIn(0);
+      },
+      removeFixed : function(){
+        this.$filterHeight.fadeOut(0);
+        this.$filter.removeClass('tour-filter_fixed');
+      },
+      resize : function(){
+        this.logicFixed();
+      },
+      init : function(){
+        this.resize();
+      }
+    };
+    // end filter object
+    filter.init();
+    $('.tour-filter--hide').click(function(){
+      filter.hide();
+      return false;
+    });
+    $('.tour-filter--show').click(function(){
+      filter.show();
+      return false;
+    });
+    $(window).on('scroll', function(){
+      filter.scroll();
+    });
+    $(window).on('resize', function(){
+      filter.resize();
+    });
+    var filterPrice = {
+      $priceMin : $('.tourFilterPriceMin'),
+      $priceMax : $('.tourFilterPriceMax'),
+      addSpace : function(str){
+        return str.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
+      },
+      removeSpace : function(str){
+        return str.replace(/\s+/g, '');
+      },
+      setPriceMin : function(){
+        var value = '';
+        value = this.$priceMin.val();
+        if(value==''){
+          value = 0;
+        }
+        return parseFloat(filterPrice.removeSpace(value));
+      },
+      setPriceMax : function (){
+        var value = '';
+        value = this.$priceMax.val();
+        if(value==''){
+          value = 0;
+        }
+        return parseFloat(filterPrice.removeSpace(value));
+      },
+      getPrice : function(valueMin, valueMax){
+        this.getPriceMin(valueMin);
+        this.getPriceMax(valueMax);
+      },
+      getPriceMin : function (value){
+        this.$priceMin.val(this.addSpace(value));
+      },
+      getPriceMax : function (value){
+        this.$priceMax.val(this.addSpace(value));
+      },
+      inputChange : function (elem){
+        if(elem.hasClass('tourFilterPriceMin')){
+          var value = filterPrice.setPriceMin();
+          filterPrice.getPriceMin(value);
+        }
+        if(elem.hasClass('tourFilterPriceMax')){
+          var value = filterPrice.setPriceMax();
+          filterPrice.getPriceMax(value);
+        }
+      }
+
+    };
+    var $filterSlider = $('.tour-filter-price');
+    if($('input').is('.tour-filter-price')){
+      $filterSlider.ionRangeSlider({
+        min: 0,
+        max: 15000000,
+        from: filterPrice.setPriceMin(),
+        to: filterPrice.setPriceMax(),
+        type: 'double',
+        step: 1000,
+        hide_min_max: true,
+          hide_from_to: true,
+          onChange : function(data){
+            filterPrice.getPrice(data.from, data.to);
+            setfilterValue();
+          }
+        });
+        var filterSlider = $filterSlider.data("ionRangeSlider");
+
+        filterPrice.$priceMin.keyup(function(){
+          filterPrice.inputChange($(this));
+        filterSlider.update({
+          from: filterPrice.setPriceMin()
+        });
+      });
+
+      filterPrice.$priceMax.keyup(function(){
+          filterPrice.inputChange($(this));
+        filterSlider.update({
+          to: filterPrice.setPriceMax()
+        });
+      });
+      $('.form-tourfilter input').change(function(){
+        setfilterValue();
+      });
+      $('.form-tourfilter input').keyup(function(){
+        setfilterValue();
+      });
+      var filterValue ={};
+      function setfilterValue(){
+        filterValue = {
+          eat1 : '',
+          eat2 : '',
+          eat3 : '',
+          eat4 : '',
+          eat5 : '',
+          class1 : '',
+          class2 : '',
+          class3 : '',
+          class4 : '',
+          priceMin : '',
+          priceMax : '',
+          beach1 : '',
+          beach2 : '',
+          beach3 : ''
+        }
+        $('.form-tourfilter input').each(function(){
+          var $elem = $(this);
+          var key = $elem.attr('name');
+          var value = false;
+          if($elem.attr('type')=='checkbox'){
+            if($elem.is(':checked')){
+              value = true
+            }
+          }
+          if($elem.attr('type')=='text'){
+            if(key=='priceMin'){
+              value = filterPrice.setPriceMin();
+            }else{
+              value = filterPrice.setPriceMax();
+            }
+          }
+          filterValue[key] = value;
+        });
+        console.clear();
+        console.log(filterValue);
+        var requestId = $('#requestId').val();
+        var params = {
+        "filter": filterValue,
+        "requestId": requestId
+      };
+      $.ajax({
+          url: "/filter",
+          data: params,
+          success: function(data){
+            $('#hotels').html('');
+            showHotels(data["hotels"], requestId);
+            $('#total').html('');
+            $('#total').html('Найдено '+ data["total"] + ' отелей');
+            $('.more').html('');
+          }
+          })
+      }
+    }
+  }
+
+});
+
+
+
+
+
+
+
+
+
+  setTimeout(function(){
+    var $result;
+    var $total = 0;
+    var $status;
+    $.ajax({
+      url: "/check",
+      data: {
+        requestId: $('#requestId').val()
+      },
+      success: function(data){
+        $result = data;
+        $total = data["total"];
+        $status = data["status"];
+        var intervalID = setInterval(function(){
+          if ($total < <%=ResAmount.first.amount%> && $status!= "finished"){
+            $.ajax({
+              url: "/check",
+              data: {
+                requestId: $('#requestId').val()
+              },
+              success: function(data){
+                $result = data;
+                $total = data["total"];
+                $status = data["status"];
+
+              }
+            })
+          }
+          else{
+            showHotels($result["hotels"], $('#requestId').val());
+            $('.feedbackDiv').show();
+            $('.tour-search-preload').fadeOut(500);
+            if ($total!=0){
+              $(' <div class="more" style="cursor: pointer;" onclick="loadMore()"><a>Загрузить еще</a></div>').insertAfter('#here');
+            }
+            //$('#total').html('Найдено '+ $result["total"] + ' отелей')
+            clearInterval(intervalID);
+          }
+
+        },4000)
+
+      }
+
+    })
+     }, 15000)
+
+ setTimeout(function(){
+ var $result;
+    var $total = 0;
+    var $status;
+    $.ajax({
+      url: "/check",
+      data: {
+        requestId: $('#requestId').val()
+      },
+      success: function(data){
+        $result = data;
+        $total = data["total"];
+        $status = data["status"];
+        var intervalID = setInterval(function(){
+          if ($status!= "finished"){
+            $.ajax({
+              url: "/check",
+              data: {
+                requestId: $('#requestId').val()
+              },
+              success: function(data){
+                $result = data;
+                $total = data["total"];
+                $status = data["status"];
+
+              }
+            })
+          }
+          else{
+            if($total>0)
+            {
+            $('#total').html('Все отели найдены')
+            }
+            else
+            {
+             $('#total').html('Ничего не найдено<br><br><p style="font-size: 20px;">Мы не нашли туры в <%=@country.name%> c вылетом из Вашего города в указанную дату.</p> <p style="font-size: 20px;">Попробуйте изменить параметры поиска</p><br> <p style="font-size: 20px;">или перезвонить нам по телефону <b>8 800 500 53 16</b></p>')
+            }
+            clearInterval(intervalID);
+          }
+
+        },4000)
+
+      }
+
+    })
+ }, 15500)
+
+
+function validateEmail(email)
+{
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
+
+
+</script>

@@ -1,0 +1,309 @@
+<% content_for :body do %>
+<%= javascript_include_tag 'jquery.min.js' %>
+<%= javascript_include_tag 'jquery.mobile.custom.min.js' %>
+<%= javascript_include_tag 'bootstrap.min.js' %>
+<%= javascript_include_tag 'jasny-bootstrap.min.js' %>
+<%= javascript_include_tag 'moment.js' %>
+<%= javascript_include_tag 'ru.js' %>
+<%= javascript_include_tag 'jquery.easing.js' %>
+<%= javascript_include_tag 'bootstrap-datetimepicker.min.js' %>
+<%= javascript_include_tag 'selectize.min.js' %>
+<%= javascript_include_tag 'jquery.quicksand.js' %>
+<%= javascript_include_tag 'slick.min.js' %>
+<%= javascript_include_tag 'jquery.fancybox.pack.js' %>
+<%= javascript_include_tag 'ion.rangeSlider.min.js' %>
+<%= javascript_include_tag 'jquery.scrollbar.min.js' %>
+<%= javascript_include_tag 'datepicker.js' %>
+<%= javascript_include_tag 'base.js' %>
+<%= javascript_include_tag 'hotel.js'%>
+<%= javascript_include_tag 'main.js'%>
+<%= javascript_include_tag 'tour-filter.js'%>
+<%= javascript_include_tag 'tour-page.js'%>
+<% end %>
+<%meals ={"BB" => "ЗАВТРАКИ", "HB/HB+" => "ДВУХРАЗОВОЕ","HB" => "ДВУХРАЗОВОЕ", "HB+" => "ДВУХРАЗОВОЕ", "FB" => "ТРЕХРАЗОВОЕ", "FB+" => "ТРЕХРАЗОВОЕ", "AL" => "ВСЕ ВКЛЮЧЕНО", "AL/UAL" => "ВСЕ ВКЛЮЧЕНО", "RO" => "БЕЗ ПИТАНИЯ", "AI" => "ВСЕ ВКЛЮЧЕНО", "UAL" => "УЛЬТРА ВСЕ ВКЛЮЧЕНО"}%>
+<%monthes = {
+  "01" => "Января",
+  "02" => "Февраля",
+  "03" => "Марта",
+  "04" => "Апреля",
+  "05" => "Мая",
+  "06" => "Июня",
+  "07" => "Июля",
+  "08" => "Августа",
+  "09" => "Сентября",
+  "10" => "Октября",
+  "11" => "Ноября",
+  "12" => "Декабря"
+}%>
+<div id="sub-header" class="sub-header_hotel xxs-compact" style="background-image:url('<%= asset_path("bg-sub-header-hotel.jpg") %>')">
+</div>
+<div class="tour-page">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9 col-sm-8">
+        <h1 class="tour-page--title"><%= @hotel.name.upcase %></h1>
+        <div class="tour-page-info row">
+          <div class="col-md-8">
+            <h5 class="tour-page--location"><%= @hotel.resort.country.name %>, <%= @hotel.resort.name %> </h5>
+          </div>
+          <div class="col-md-4 text-right no-rightpadding hidden-sm">
+            <div class="tour-page--rating">
+              <ul class="stars">
+                <% @hotel.stars_count.times do %>
+                  <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                <% end %>
+              </ul>
+              <span class="number">~ <%= @hotel.hotel_rate.round(1) %></span>
+            </div>
+          </div>
+        </div>
+        <div class="tour-page--infoafter row">
+          <div class="col-md-12">
+            <ul class="tour-page--stages">
+              <li class="tour-page--stage tour-page--stage_current">Шаг 1. Информация о туре</li>
+              <li class="tour-page--stage">2</li>
+              <li class="tour-page--stage">3</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tour-page-price">
+          <h6 class="tour-page-price--header">Цена тура</h6>
+          <div class="tour-page-price--info">
+            <div class="tour-page-price--info-content">
+              <span class="price"><%= number_with_delimiter(@tour.price, locale: :ru) %> <i class="fa fa-rub" aria-hidden="true"></i></span>
+              <div class="tour-page--textincludes">Вы можете оплатить сегодня 
+               <% if (@tour.depart_date - DateTime.now).to_i > 30  %>
+                  <% a = ((@tour.price.to_i)*0.3).ceil%>
+               <% elsif (@tour.depart_date - DateTime.now).to_i > 14 && (@tour.depart_date - DateTime.now).to_i < 29%>
+                  <% a = ((@tour.price.to_i)*0.5).ceil%>
+                <%else%>
+                  <% a = @tour.price %>
+                  <%b = 1%>
+                <%end%>
+              <strong><%=a%></strong> <%="руб., а остальную часть — в течение 3 дней." if !b%></div>
+            </div>
+            <div class="tour-page-price--info-button hidden-xs">
+              <a href="<%=@link%>" class="btn btn-lg btn-green tour-page-buy">следующий шаг</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-4">
+        <div class="visible-sm text-right">
+          <div class="tour-page--rating">
+            <ul class="stars">
+              <% @hotel.stars_count.times do %>
+                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+              <% end %>
+            </ul>
+            <span class="number">~ <%= @hotel.hotel_rate.round(1) %></span>
+          </div>
+        </div>
+        <div class="tour-page-slider hidden-xs">
+         <%if @hotel.sletat_image_universal_urls.present? %>
+          <% @hotel.sletat_image_universal_urls.each do |url| %>
+            <div class="slide"><a href="<%= url %>" class="fancybox" rel="gallery-tour"><%= image_tag url %></a></div>
+          <%end%>
+        <%end%>
+        </div>
+      </div>
+    </div>
+    <h4 class="tour-page-partheader">В тур включено</h4>
+  </div>
+  <div class="tour-page-includes hidden-xs">
+    <div class="tour-page-includes--header">
+      <div class="container">
+        <ul class="tab-header">
+          <li class="tab-header--active">
+            <a href="#tab1">
+              <div class="icon icon-md">
+                <span class="icons-tourtab-1"></span>
+              </div>
+              <div class="icon icon-lg">
+                <span class="icons-tourtab-1_lg"></span>
+              </div>
+              <span class="text">Перелет</span>
+            </a>
+          </li>
+           <li>
+            <a href="#tab2">
+              <div class="icon icon-md">
+                <span class="icons-tourtab-2"></span>
+              </div>
+              <div class="icon icon-lg">
+                <span class="icons-tourtab-2_lg"></span>
+              </div>
+              <span class="text">Проживание<br> в отеле</span>
+            </a>
+          </li>
+           <li>
+            <a href="#tab3">
+              <div class="icon icon-md">
+                <span class="icons-tourtab-3"></span>
+              </div>
+              <div class="icon icon-lg">
+                <span class="icons-tourtab-3_lg"></span>
+              </div>
+              <span class="text">а также</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="tour-page-includes--content">
+      <div class="container">
+        <div class="tab-list">
+          <div class="tab-item">
+            <div class="row tour-page-includes-air">
+              <div class="col-md-4">
+                <h5>Условия перелётов могут измениться.</h5>
+              </div>
+              <div class="col-md-8">
+                <ul class="tour-page-includes-air--list">
+                     <li>
+              <div class="icon"><span class="icons-arrow-up_small_blue"></span></div>
+              <div class="content">
+              <b><%=@tour.depart_date.to_s[8..9]+" "+monthes[@tour.depart_date.to_s[5..6]]%></b><%=" "+@tour.depart_city+" -> "+@hotel.resort.name%>
+              </div>
+            </li>
+              <li>
+              <div class="icon"><span class="icons-arrow-down_small_orange"></span></div>
+              <div class="content">
+               <b><%=(@tour.depart_date+@tour.nights.days).to_s[8..9]+" "+monthes[(@tour.depart_date+@tour.nights.days).to_s[5..6]]%></b><%=" "+@hotel.resort.name+" -> "+@tour.depart_city%>
+              </div>
+            </li>        
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="tab-item">
+            <b>Туроператор: <%= @tour.tour_operator%> </b>
+            <br>
+            <b>Проживание в отеле <%= @hotel.name.upcase %></b>
+            <br>
+            <%= @tour.depart_date.to_s[8..9]+" "+monthes[@tour.depart_date.to_s[5..6]]+"-"+(@tour.depart_date+@tour.nights.days).to_s[8..9]+" "+monthes[(@tour.depart_date+@tour.nights.days).to_s[5..6]] %>
+            <br>
+            <%= @tour.nights %> ночей
+            <br>
+            <b>Номер:</b> <%= @tour.room_type %> 
+            <br>
+            <b>Питание:</b> <%= meals[@tour.meal.upcase] %>
+            <br>
+            Взрослых: <%= @tour.adults_number %>
+            <br>
+            Детей: <%= @tour.children_number %>
+          </div>
+          <div class="tab-item">
+            <%@oil_taxes.each do |oil|%>
+                <%if oil.start_date%>
+                  <p><b>Начало действия топливных сборов:</b> <%=oil.start_date%> </p>
+                <%end%>
+                 <%if oil.finish_date%>
+                  <p><b>Конец действия топливных сборов:</b> <%=oil.finish_date%> </p>
+                <%end%>
+                 <%if oil.amount%>
+                  <p><b>Сумма:</b> <%=oil.amount%> </p> 
+                <%end%>
+                 <%if oil.currency%>
+                  <p><b>Валюта: </b> <%=oil.currency%> </p>
+                <%end%>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tour-page-includesxs visible-xs">
+    <div class="tour-page-includesxs--item tour-page-includesxs--item_active">
+      <a href="#" class="tour-page-includesxs--header">
+        <span class="text">Перелет</span>
+        <span class="icon"><i class="fa"></i></span>
+      </a>
+      <div class="tour-page-includesxs--content">
+        <div class="container">
+          <h5 class="tour-page-includesxs--heading">Условия перелётов могут измениться.</h5>
+          <ul class="tour-page-includes-air--list">
+            <li>
+              <div class="icon"><span class="icons-arrow-up_small_blue"></span></div>
+              <div class="content">
+              <b><%=@tour.depart_date.to_s[8..9]+" "+monthes[@tour.depart_date.to_s[5..6]]%></b><%=" "+@tour.depart_city+" -> "+@hotel.resort.name%>
+              </div>
+            </li>
+              <li>
+              <div class="icon"><span class="icons-arrow-down_small_orange"></span></div>
+              <div class="content">
+               <b><%=(@tour.depart_date+@tour.nights.days).to_s[8..9]+" "+monthes[(@tour.depart_date+@tour.nights.days).to_s[5..6]]%></b><%=" "+@hotel.resort.name+" -> "+@tour.depart_city%>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="tour-page-includesxs--item">
+      <a href="#" class="tour-page-includesxs--header">
+        <span class="text">Проживание</span>
+        <span class="icon"><i class="fa"></i></span>
+      </a>
+      <div class="tour-page-includesxs--content">
+        <div class="container">
+         <b>Туроператор: <%= @tour.tour_operator%> </b>
+            <br>
+            <b>Проживание в отеле <%= @hotel.name.upcase %></b>
+            <br>
+            <%= @tour.depart_date.to_s[8..9]+" "+monthes[@tour.depart_date.to_s[5..6]]+"-"+(@tour.depart_date+@tour.nights.days).to_s[8..9]+" "+monthes[(@tour.depart_date+@tour.nights.days).to_s[5..6]] %>
+            <br>
+            <%= @tour.nights %> ночей
+            <br>
+            <b>Номер:</b> <%= @tour.room_type %> 
+            <br>
+            <b>Питание:</b> <%= meals[@tour.meal.upcase] %>
+            <br>
+            Взрослых: <%= @tour.adults_number %>
+            <br>
+            Детей: <%= @tour.children_number %></div>
+      </div>
+    </div>
+    <div class="tour-page-includesxs--item">
+      <a href="#" class="tour-page-includesxs--header">
+        <span class="text">А также</span>
+        <span class="icon"><i class="fa"></i></span>
+      </a>
+      <div class="tour-page-includesxs--content">
+        <div class="container">
+            <%@oil_taxes.each do |oil|%>
+                <%if oil.start_date%>
+                  <p><b>Начало действия топливных сборов:</b> <%=oil.start_date%> </p>
+                <%end%>
+                 <%if oil.finish_date%>
+                  <p><b>Конец действия топливных сборов:</b> <%=oil.finish_date%> </p>
+                <%end%>
+                 <%if oil.amount%>
+                  <p><b>Сумма:</b> <%=oil.amount%> </p> 
+                <%end%>
+                 <%if oil.currency%>
+                  <p><b>Валюта: </b> <%=oil.currency%> </p>
+                <%end%>
+            <%end%>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="tour-page-more">
+    <div class="container">
+      <div class="tour-page-price">
+        <h6 class="tour-page-price--header">Итого цена тура:</h6>
+        <div class="tour-page-price--info">
+          <div class="tour-page-price--info-content">
+            <span class="price"><%=@tour.price%> <i class="fa fa-rub" aria-hidden="true"></i></span>
+            <div class="tour-page--textincludes">Вы можете оплатить сегодня <strong><%=a%></strong> <%="руб., а остальную часть — в течение 3 дней." if !b%></div>
+          </div>
+          <div class="tour-page-price--info-button">
+            <a href="<%=@link%>" class="btn btn-lg btn-green tour-page-buy">следующий шаг</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

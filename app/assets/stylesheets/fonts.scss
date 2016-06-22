@@ -1,0 +1,202 @@
+@font-face {
+font-family: 'Museo Sans';
+font-style: normal;
+font-weight: 100;
+src: font-url('museosanscyrl_100.eot?') format('eot'),
+font-url('museosanscyrl_100.woff') format('woff'),
+font-url('museosanscyrl_100.woff2') format('woff2'),
+font-url('museosanscyrl_100.ttf') format('truetype'),
+font-url('museosanscyrl_100.otf') format('opentype');
+}
+@font-face {
+font-family: 'Museo Sans';
+font-style: normal;
+font-weight: 300;
+src: font-url('museosanscyrl_300.eot?') format('eot'),
+font-url('museosanscyrl_300.woff') format('woff'),
+font-url('museosanscyrl_300.woff2') format('woff2'),
+font-url('museosanscyrl_300.ttf') format('truetype'),
+font-url('museosanscyrl_300.otf') format('opentype');
+}
+@font-face {
+font-family: 'Museo Sans';
+font-style: normal;
+font-weight: 500;
+src: font-url('museosanscyrl_500.eot?') format('eot'),
+font-url('museosanscyrl_500.woff') format('woff'),
+font-url('museosanscyrl_500.woff2') format('woff2'),
+font-url('museosanscyrl_500.ttf') format('truetype'),
+font-url('museosanscyrl_500.otf') format('opentype');
+}
+@font-face {
+font-family: 'Museo Sans';
+font-style: italic;
+font-weight: 100;
+src: font-url('museosanscyrl_100_italic.eot?') format('eot'),
+font-url('museosanscyrl_100_italic.woff') format('woff'),
+font-url('museosanscyrl_100_italic.woff2') format('woff2'),
+font-url('museosanscyrl_100_italic.ttf') format('truetype');
+}
+@font-face {
+font-family: 'Museo Sans';
+font-style: italic;
+font-weight: 300;
+src: font-url('museosanscyrl_300_italic.eot?') format('eot'),
+font-url('museosanscyrl_300_italic.woff') format('woff'),
+font-url('museosanscyrl_300_italic.woff2') format('woff2'),
+font-url('museosanscyrl_300_italic.ttf') format('truetype');
+}
+@font-face {
+font-family: 'Museo Sans';
+font-style: italic;
+font-weight: 500;
+src: font-url('museosanscyrl_500_italic.eot?') format('eot'),
+font-url('museosanscyrl_500_italic.woff') format('woff'),
+font-url('museosanscyrl_500_italic.woff2') format('woff2'),
+font-url('museosanscyrl_500_italic.ttf') format('truetype');
+}
+@font-face {
+font-family: 'Museo Sans';
+font-style: normal;
+font-weight: 700;
+src: font-url('museosanscyrl_700.woff') format('woff'),
+font-url('museosanscyrl_700.otf') format('opentype');
+}
+@font-face {
+font-family: 'Museo Sans';
+font-style: normal;
+font-weight: 900;
+src: font-url('museosanscyrl_900.woff') format('woff'),
+font-url('museosanscyrl_900.otf') format('opentype');
+}
+
+@font-face {
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 100;
+src: font-url('roboto_100.ttf') format('truetype');
+}
+@font-face {
+font-family: 'Roboto';
+font-style: italic;
+font-weight: 100;
+src: font-url('roboto_100_italic.ttf') format('truetype');
+}
+@font-face {
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 300;
+src: font-url('roboto_300.eot?') format('eot'),
+font-url('roboto_300.woff') format('woff'),
+font-url('roboto_300.ttf') format('truetype'),
+font-url('roboto_300.svg#RobotoLight') format('svg');
+}
+@font-face {
+font-family: 'Roboto';
+font-style: italic;
+font-weight: 300;
+src:font-url('roboto_300_italic.ttf') format('truetype');
+}
+@font-face {
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+src: font-url('roboto_400.eot?') format('eot'),
+font-url('roboto_400.woff') format('woff'),
+font-url('roboto_400.ttf') format('truetype'),
+font-url('roboto_400.svg#RobotoRegular') format('svg');
+}
+@font-face {
+font-family: 'Roboto';
+font-style: italic;
+font-weight: 400;
+src: font-url('roboto_400_italic.ttf') format('truetype');
+}
+@font-face {
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 500;
+src: font-url('roboto_500.eot?') format('eot'),
+font-url('roboto_500.woff') format('woff'),
+font-url('roboto_500.ttf') format('truetype'),
+font-url('roboto_500.svg#RobotoMedium') format('svg');
+}
+@font-face {
+font-family: 'Roboto';
+font-style: italic;
+font-weight: 500;
+src: font-url('roboto_500_italic.ttf') format('truetype');
+}
+@font-face {
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 700;
+src: font-url('roboto_700.eot?') format('eot'),
+font-url('roboto_700.woff') format('woff'),
+font-url('roboto_700.ttf') format('truetype'),
+font-url('roboto_700.svg#RobotoBold') format('svg');
+}
+@font-face {
+font-family: 'Roboto';
+font-style: italic;
+font-weight: 700;
+src: font-url('roboto_700_italic.ttf') format('truetype');
+}
+@font-face {
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 900;
+src: font-url('roboto_900.ttf') format('truetype');
+}
+@font-face {
+font-family: 'Roboto';
+font-style: italic;
+font-weight: 900;
+src: font-url('roboto_900_italic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'helveticaneuecyr';
+    src: font-url('helveticaneuecyr-roman-webfont.eot');
+    src: font-url('helveticaneuecyr-roman-webfont.eot?#iefix') format('embedded-opentype'),
+         font-url('helveticaneuecyr-roman-webfont.woff2') format('woff2'),
+         font-url('helveticaneuecyr-roman-webfont.woff') format('woff'),
+         font-url('helveticaneuecyr-roman-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'helveticaneuecyr';
+    src: font-url('helveticaneuecyr-bold-webfont.eot');
+    src: font-url('helveticaneuecyr-bold-webfont.eot?#iefix') format('embedded-opentype'),
+       font-url('helveticaneuecyr-bold-webfont.woff2') format('woff2'),
+        font-url('helveticaneuecyr-bold-webfont.woff') format('woff'),
+        font-url('helveticaneuecyr-bold-webfont.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'helveticaneuecyr';
+   src: font-url('helveticaneuecyr-medium-webfont.eot');
+   src: font-url('helveticaneuecyr-medium-webfont.eot?#iefix') format('embedded-opentype'),
+      font-url('helveticaneuecyr-medium-webfont.woff2') format('woff2'),
+       font-url('helveticaneuecyr-medium-webfont.woff') format('woff'),
+        font-url('helveticaneuecyr-medium-webfont.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+
+}
+@font-face {
+   font-family: 'helveticaneuecyr';
+   src: font-url('helveticaneuecyr-light-webfont.eot');
+   src: font-url('helveticaneuecyr-light-webfont.eot?#iefix') format('embedded-opentype'),
+        font-url('helveticaneuecyr-light-webfont.woff2') format('woff2'),
+        font-url('helveticaneuecyr-light-webfont.woff') format('woff'),
+        font-url('helveticaneuecyr-light-webfont.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+
+}

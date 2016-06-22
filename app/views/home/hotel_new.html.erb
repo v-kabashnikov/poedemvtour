@@ -1,0 +1,25 @@
+
+
+<div id="tours2" data-status='0'>
+
+</div>
+
+<script>
+  var intervalID = setInterval(function(){
+    var requestId = '<%= params[:requestId] %>';
+    var status = $('#tours2').attr('data-status');
+    if(requestId && status == 0){
+      $.ajax({
+        url: "<%= check_tours_path(@hotel) %>",
+        data: {
+          requestId: requestId
+        },
+        success: function(data){
+          if(data){
+            clearInterval(intervalID);
+          }
+        }
+      });
+    }
+  }, 5000)
+</script>

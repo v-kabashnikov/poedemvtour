@@ -1,0 +1,29 @@
+ru:
+  helpers:
+    submit:
+      user:
+        create: "Создать %{model}"
+        update: "Сохранить %{model}"
+  activerecord:
+    models:
+      user:
+        one: пользователя
+        other: Пользователи
+    attributes:
+      user:
+        id: Номер
+        email: 'Электронная почта'
+        password: Пароль
+        role: Роль
+        password_confirmation: 'Подтверждение пароля'
+        current_password: 'Текущий пароль'
+        sign_in_count: 'Количество входов'
+        current_sign_in_at: 'Текущий вход'
+        last_sign_in_at: 'Последний вход'
+        current_sign_in_ip: 'IP текущего входа'
+        last_sign_in_ip: 'IP последнего входа'
+        created_at: 'Создан'
+        updated_at: 'Обновлен'
+        roles:
+          admin: 'Администратор'
+          manager: 'Менеджер'

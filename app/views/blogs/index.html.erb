@@ -1,0 +1,61 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'blog', media: 'all' %>
+<% end %>
+<% content_for :body do %>
+  <%= javascript_include_tag 'jquery.min.js' %>
+  <%= javascript_include_tag 'jquery.mobile.custom.min.js' %>
+  <%= javascript_include_tag 'bootstrap.min.js' %>
+  <%= javascript_include_tag 'jasny-bootstrap.min.js' %>
+  <%= javascript_include_tag 'moment.js' %>
+  <%= javascript_include_tag 'ru.js' %>
+  <%= javascript_include_tag 'jquery.easing.js' %>
+  <%= javascript_include_tag 'bootstrap-datetimepicker.min.js' %>
+  <%= javascript_include_tag 'selectize.min.js' %>
+  <%= javascript_include_tag 'jquery.quicksand.js' %>
+  <%= javascript_include_tag 'slick.min.js' %>
+  <%= javascript_include_tag 'jquery.fancybox.pack.js' %>
+  <%= javascript_include_tag 'datepicker.js' %>
+  <%= javascript_include_tag 'main.js' %>
+<% end %>
+<div id="sub-header" style="background-image:url('<%=asset_path("sh-blog.jpg")%>')">
+  <h3>Пишем обо всем</h3>
+</div>
+<h1 class="text-center blog">Интересные статьи</h1>
+<div class="blog-categories container-fluid text-center">
+  <div class="hidden-xxs row">
+    <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
+    <%@blog_categories.each do |b|%>
+      <a href="/blog/theme/<%=b.id%>" data-filter-by="category" data-target=".blog-list .filtered" data-value="aqua"><%=b.name%></a>
+
+    <%end%>
+    <!--  <a class="active" href="#" data-filter-by="category" data-target=".blog-list .filtered" data-value="*">Все</a>-->
+    </div>
+  </div>
+
+  <div class="btn-group">
+    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span>Все</button>
+    <ul class="dropdown-menu">
+      <li><a href="#" data-filter-by="category" data-target=".blog-list .filtered" data-value="aqua">Аквапарки</a></li>
+      <li><a href="#" data-filter-by="category" data-target=".blog-list .filtered" data-value="busn">Бизнес</a></li>
+      <li><a href="#" data-filter-by="category" data-target=".blog-list .filtered" data-value="gstr">Гастротуризм</a></li>
+      <li><a href="#" data-filter-by="category" data-target=".blog-list .filtered" data-value="grek">Греция</a></li>
+      <li><a href="#" data-filter-by="category" data-target=".blog-list .filtered" data-value="chld">Дети</a></li>
+      <li><a href="#" data-filter-by="category" data-target=".blog-list .filtered" data-value="egip">Египет</a></li>
+      <li><a href="#" data-filter-by="category" data-target=".blog-list .filtered" data-value="intr">Интересное</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row blog-list">
+  <div class="blogs-cont">
+ 
+ <%= render @blogs %>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="text-center">
+      <%= link_to "Показать еще", '/blog', class: "btn btn-more load-more" %>
+    </div>
+  </div>
+</div>  

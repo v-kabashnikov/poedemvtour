@@ -1,0 +1,69 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'hotels-by-country', media: 'all' %>
+<% end %>
+<% content_for :body do %>
+  <%= javascript_include_tag 'jquery.min.js' %>
+  <%= javascript_include_tag 'jquery.mobile.custom.min.js' %>
+  <%= javascript_include_tag 'bootstrap.min.js' %>
+  <%= javascript_include_tag 'jasny-bootstrap.min.js' %>
+  <%= javascript_include_tag 'moment.js' %>
+  <%= javascript_include_tag 'ru.js' %>
+  <%= javascript_include_tag 'jquery.easing.js' %>
+  <%= javascript_include_tag 'bootstrap-datetimepicker.min.js' %>
+  <%= javascript_include_tag 'selectize.min.js' %>
+  <%= javascript_include_tag 'jquery.quicksand.js' %>
+  <%= javascript_include_tag 'slick.min.js' %>
+  <%= javascript_include_tag 'jquery.fancybox.pack.js' %>
+  <%= javascript_include_tag 'datepicker.js' %>
+  <%= javascript_include_tag 'main.js' %>
+<% end %>
+<div id="sub-header" class="xxs-compact" style="background-image:url('<%=asset_path("DEMO/sh-hotels-by-country.jpg")%>')">
+	<h3 class="hidden-xxs">Отели по странам</h3>
+</div>
+<div class="container-fluid text-center" id="continent-list">
+	<div class="hidden-sm hidden-xs hidden-xxs row">
+		<div class="col-lg-10 col-lg-offset-1">
+			<a class="active" href="/countries/">Все страны</a>
+			<%@categories.each do |category| %>
+			  <% if category.name != "Все страны" %>
+			  	<a href="/countries/category/<%= category.slug %>"><%= category.name %></a>
+			  <% end %>
+			<% end %>
+		</div>
+	</div>
+
+	<div class="visible-sm visible-xs visible-xxs row">
+		<div class="btn-group col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+			<button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span>Европа</button>
+			<ul class="dropdown-menu">
+			<li><a class="active" href="/countries/">Все страны</a></li>
+			<% @categories.each do |category| %>
+			  <% if category.name != "Все страны" %>
+			  	<li><a href="/countries/category/<%= category.slug %>"><%=category.name%></a></li>
+			  <% end %>
+			<% end %>
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-xs-11 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+			<div class="clearfix row-fluid" id="countries">
+				<%@countries.each do |country| %>
+				<%if !country.flag_link %>
+				<%img = country.flag.url%>
+				<%else%>
+				<%img = country.flag_link %>
+				<%end%>
+				<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><a href="<%= country_url(country) %>"><i>	<img src="<%=img%>"></i><span><%=country.name%></span></a></div>
+
+				<%end%>
+				
+			</div>
+		</div>
+	</div>
+</div>	

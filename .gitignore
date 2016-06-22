@@ -1,0 +1,53 @@
+*.rbc
+capybara-*.html
+.rspec
+/log
+/tmp
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/db/schema.rb
+/public/system
+/coverage/
+/spec/tmp
+**.orig
+rerun.txt
+pickle-email-*.html
+
+# Ignore bundler config.
+/.bundle
+/vendor/bundle
+
+# Ignore all logfiles and tempfiles.
+/log/*
+!/log/.keep
+/tmp
+/public/uploads
+
+# unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
+.rvmrc
+
+# TODO Comment out these rules if you are OK with secrets being uploaded to the repo
+/shared
+/public/system/
+# /Procfile
+
+# if using bower-rails ignore default bower_components path bower.json files
+/vendor/assets/bower_components
+*.bowerrc
+bower.json
+
+# Ignore pow environment settings
+.powenv
+
+/app/views/tmp
+
+# Ignore application configuration
+/config/application.yml
+
+# Ignore db config
+/config/database.yml
+
+/config/initializers/secret_token.rb
+/config/deploy/
+
+*.tmp

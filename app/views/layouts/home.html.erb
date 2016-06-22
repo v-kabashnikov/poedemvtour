@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Поедем в тур</title>
+    <style>
+      @-webkit-keyframes square-spin {
+                      25% {
+                        -webkit-transform: perspective(100px) rotateX(180deg) rotateY(0deg);
+                        transform: perspective(100px) rotateX(180deg) rotateY(0deg);
+                        background:#ddd;
+                      }
+      
+                      50% {
+                        -webkit-transform: perspective(100px) rotateX(180deg) rotateY(180deg);
+                        transform: perspective(100px) rotateX(180deg) rotateY(180deg);
+                        background:#365;
+                      }
+      
+                      75% {
+                        -webkit-transform: perspective(100px) rotateX(0deg) rotateY(180deg);
+                        transform: perspective(100px) rotateX(0deg) rotateY(180deg);
+                        background:#954;
+                      }
+      
+                      100% {
+                        -webkit-transform: perspective(100px) rotateX(0deg) rotateY(0deg);
+                        transform: perspective(100px) rotateX(0deg) rotateY(0deg);
+                        background:#456;
+                      }
+                    }
+      
+                    @keyframes square-spin {
+                      25% {
+                        -webkit-transform: perspective(100px) rotateX(180deg) rotateY(0deg);
+                        transform: perspective(100px) rotateX(180deg) rotateY(0deg);
+                        background:#ddd;
+                      }
+      
+                      50% {
+                        -webkit-transform: perspective(100px) rotateX(180deg) rotateY(180deg);
+                        transform: perspective(100px) rotateX(180deg) rotateY(180deg);
+                        background:#365;
+                      }
+      
+                      75% {
+                        -webkit-transform: perspective(100px) rotateX(0deg) rotateY(180deg);
+                        transform: perspective(100px) rotateX(0deg) rotateY(180deg);
+                        background:#954;
+                      }
+      
+                      100% {
+                        -webkit-transform: perspective(100px) rotateX(0deg) rotateY(0deg);
+                        transform: perspective(100px) rotateX(0deg) rotateY(0deg);
+                        background:#456;
+                      }
+                    }
+      
+                    #preloader{
+                      display:block;
+                      position:fixed;
+                      top:0;
+                      left:0;
+                      right:0;
+                      bottom:0;
+                      background:#fff;
+                      z-index:9999999;
+                      visibility:visible;
+                      -webkit-transition: visibility .3s;
+                      -moz-transition: visibility .3s;
+                      -ms-transition: visibility .3s;
+                      -o-transition: visibility .3s;
+                      transition: visibility .3s;
+                    }
+                    #preloader > div {
+                      position:absolute;
+                      top:0;
+                      left:0;
+                      right:0;
+                      bottom:0;
+                      margin:auto;
+                      -webkit-animation-fill-mode: both;
+                      animation-fill-mode: both;
+                      width: 50px;
+                      height: 50px;
+                      background:#456;
+                      -webkit-animation: square-spin 2s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+                      animation: square-spin 2s 0s cubic-bezier(.09, .57, .49, .9) infinite; }
+    </style>
+    <script>
+      window.onload = function(){document.getElementById('preloader').style.display='none'};
+                    window.onbeforeunload  = function(){document.getElementById('preloader').style.display='block'};
+    </script>
+    <%= stylesheet_link_tag  'application', media: 'all' %>
+     <%= javascript_include_tag 'application' %>
+   
+    <%= csrf_meta_tags %>
+    <!-- PRELOADER -->
+    <script>
+      var ready=function(){function g(){if(!a.isReady){try{document.documentElement.doScroll("left")}catch(b){setTimeout(g,1);return}a.ready()}}var e,c,n={"[object Boolean]":"boolean","[object Number]":"number","[object String]":"string","[object Function]":"function","[object Array]":"array","[object Date]":"date","[object RegExp]":"regexp","[object Object]":"object"},a={isReady:!1,readyWait:1,holdReady:function(b){b?a.readyWait++:a.ready(!0)},ready:function(b){if(!0===b&&!--a.readyWait||!0!==b&&!a.isReady){if(!document.body)return setTimeout(a.ready,1);a.isReady=!0;!0!==b&&0<--a.readyWait||e.resolveWith(document,[a])}},bindReady:function(){if(!e){e=a._Deferred();if("complete"===document.readyState)return setTimeout(a.ready,1);if(document.addEventListener)document.addEventListener("DOMContentLoaded",c,!1),window.addEventListener("load",a.ready,!1);else if(document.attachEvent){document.attachEvent("onreadystatechange",c);window.attachEvent("onload",a.ready);var b=!1;try{b=null==window.frameElement}catch(f){}document.documentElement.doScroll&&b&&g()}}},_Deferred:function(){var b=[],f,c,e,h={done:function(){if(!e){var c=arguments,d,g,k,m,l;f&&(l=f,f=0);d=0;for(g=c.length;d<g;d++)k=c[d],m=a.type(k),"array"===m?h.done.apply(h,k):"function"===m&&b.push(k);l&&h.resolveWith(l[0],l[1])}return this},resolveWith:function(a,d){if(!e&&!f&&!c){d=d||[];c=1;try{for(;b[0];)b.shift().apply(a,d)}finally{f=[a,d],c=0}}return this},resolve:function(){h.resolveWith(this,arguments);return this},isResolved:function(){return!(!c&&!f)},cancel:function(){e=1;b=[];return this}};return h},type:function(a){return null==a?String(a):n[Object.prototype.toString.call(a)]||"object"}};document.addEventListener?c=function(){document.removeEventListener("DOMContentLoaded",c,!1);a.ready()}:document.attachEvent&&(c=function(){"complete"===document.readyState&&(document.detachEvent("onreadystatechange",c),a.ready())});return function(b){a.bindReady();a.type(b);e.done(b)}}();
+    </script>
+    <%= stylesheet_link_tag  'main', media: 'all' %>
+    <%= yield :head %>
+  </head>
+  <body class="body-main" style="">
+    <script>
+      document.write('<div id="preloader"><div></div></div>')
+    </script>
+    <div class="canvas" id="site-wrap">
+      <div id="site-overlay"></div>
+      <%= render 'home/header' %>
+      <%= yield %>
+      <%= render 'home/footer' %>
+    </div>
+    <%= yield :body %>
+    
+  <script>
+  /*  FOOTER SCROLLSPY  */
+  (function(){
+    if(!$('body').hasClass('body-main')){
+      $footer = $('footer');
+
+      $(window).scroll(footerCuCu);
+      $(window).resize(footerCuCu);
+      footerCuCu();
+
+      function footerCuCu(){
+        var fheight = $footer.outerHeight();
+        var wheight = $(window).height();
+
+        if(wheight>fheight){
+          $('body').css('margin-bottom',fheight);
+          var scroll = $(window).scrollTop()+wheight;
+          var fscroll = scroll - ($(document).outerHeight(true)-fheight);
+          $footer.addClass('fixed');
+          if(fscroll >= 0){
+            $footer.removeClass('transparent');
+          }
+          else{
+            $footer.addClass('transparent');
+          }
+        }
+        else{
+          $footer.removeClass('fixed').removeClass('transparent');
+          $('body').css('margin-bottom',0);
+        }
+
+
+
+
+      }
+    }
+  })($);
+</script>
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter37331565 = new Ya.Metrika({
+                    id:37331565,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true,
+                    webvisor:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/37331565" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+  </body>
+</html>

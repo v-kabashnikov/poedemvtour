@@ -1,0 +1,86 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'blog-item', media: 'all' %>
+<% end %>
+<% content_for :body do %>
+  <%= javascript_include_tag 'jquery.min.js' %>
+  <%= javascript_include_tag 'jquery.mobile.custom.min.js' %>
+  <%= javascript_include_tag 'bootstrap.min.js' %>
+  <%= javascript_include_tag 'jasny-bootstrap.min.js' %>
+  <%= javascript_include_tag 'moment.js' %>
+  <%= javascript_include_tag 'ru.js' %>
+  <%= javascript_include_tag 'jquery.easing.js' %>
+  <%= javascript_include_tag 'bootstrap-datetimepicker.min.js' %>
+  <%= javascript_include_tag 'selectize.min.js' %>
+  <%= javascript_include_tag 'jquery.quicksand.js' %>
+  <%= javascript_include_tag 'slick.min.js' %>
+  <%= javascript_include_tag 'jquery.fancybox.pack.js' %>
+  <%= javascript_include_tag 'datepicker.js' %>
+  <%= javascript_include_tag 'main.js' %>
+<% end %>
+<div id="sub-header" style="background-image:url('<%=asset_path("sh-blog.jpg")%>')">
+  <!--<h3>Пишем обо всем</h3>-->
+</div>
+<div class="container" id="blog-item">
+  <div class="breadcrumbs"><a href="/">Главная</a> - <a href="/blog">блог</a></div>
+  <h1><%=@blog.title%></h1>
+  <div class="date">02.05.2015</div>
+  <div class="content">
+    <p><%=@blog.content%></p>
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-sm-3 hidden-xs" style="margin-bottom: 50px;">
+      <a class="back" href="/blog">Вернуться к списку</a>
+    </div>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+      <script type="text/javascript">
+        (function() {if (window.pluso)if (typeof window.pluso.start == "function") return;if (window.ifpluso==undefined) { window.ifpluso = 1;var d = document, s = d.createElement('script'), g = 'getElementsByTagName';s.type = 'text/javascript'; s.charset='UTF-8'; s.async = true;s.src = ('https:' == window.location.protocol ? 'https' : 'http')  + '://share.pluso.ru/pluso-like.js';var h=d[g]('body')[0];h.appendChild(s);}})();
+      </script>
+      <div class="pluso" data-background="none;" data-options="medium,square,line,horizontal,counter,sepcounter=1,theme=14" data-services="vkontakte,odnoklassniki,facebook,twitter,google,moimir"></div>
+    </div>
+    <div class="col-xs-12 visible-xs" style="margin: 20px 0 35px;">
+      <a class="back" href="#">Вернуться к списку</a>
+    </div>
+  </div>
+  <div class="similar hidden-xs">
+    <h3>Также интересно</h3>
+    <div class="carousel slide" id="blog-slider" data-ride="carousel">
+      <!-- Indicators
+      <ol class="carousel-indicators">
+        <li data-target="#brand-slider" data-slide-to="0" class="active"></li>
+        <li data-target="#brand-slider" data-slide-to="1"></li>
+      </ol>-->
+
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner">
+        <div class="item active">
+          <%@blogs[0..3].each do |blog| %>
+          <div class="col-lg-3 col-md-3 col-sm-4">
+            <a href="/blog/<%=blog.id%>" class="blog-slide-item">
+             <div class="blog-item-thumb"><%= image_tag(blog.preview.url)%></div>
+             <h2><%=blog.title%></h2>
+             <div class="blog-item-date"><%=blog.created_at%></div>
+            </a>
+          </div>
+         <%end%>
+        </div>
+        <div class="item">
+            <%@blogs[4..7].each do |blog| %>
+          <div class="col-lg-3 col-md-3 col-sm-4">
+            <a href="/blog/<%=blog.id%>" class="blog-slide-item">
+             <div class="blog-item-thumb"><%= image_tag(blog.preview.url)%></div>
+             <h2><%=blog.title%></h2>
+             <div class="blog-item-date"><%=blog.created_at%></div>
+            </a>
+          </div>
+         <%end%>
+         
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <a class="left carousel-control" href="#blog-slider" data-slide="prev">←</a>
+      <a class="right carousel-control" href="#blog-slider" data-slide="next">→</a>
+    </div>
+  </div>
+</div>
+

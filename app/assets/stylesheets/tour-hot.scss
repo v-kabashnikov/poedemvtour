@@ -1,0 +1,17 @@
+/*  REWRITE  */
+
+
+@media (max-width: 767px){
+#x-filters .flex-3{
+width:calc(50% + 38px);
+}
+#x-filters .flex-4{
+width:calc(50% - 38px);
+}
+#x-filters .flex-4 > *{
+border-left:0;
+}
+#x-filters .flex-5 > *{
+border-right:0;
+}
+}

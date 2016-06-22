@@ -1,0 +1,293 @@
+<% content_for :body do %>
+<%= javascript_include_tag 'jquery.min.js' %>
+<%= javascript_include_tag 'jquery.mobile.custom.min.js' %>
+<%= javascript_include_tag 'bootstrap.min.js' %>
+<%= javascript_include_tag 'jasny-bootstrap.min.js' %>
+<%= javascript_include_tag 'moment.js' %>
+<%= javascript_include_tag 'ru.js' %>
+<%= javascript_include_tag 'jquery.easing.js' %>
+<%= javascript_include_tag 'bootstrap-datetimepicker.min.js' %>
+<%= javascript_include_tag 'selectize.min.js' %>
+<%= javascript_include_tag 'jquery.quicksand.js' %>
+<%= javascript_include_tag 'slick.min.js' %>
+<%= javascript_include_tag 'jquery.fancybox.pack.js' %>
+<%= javascript_include_tag 'ion.rangeSlider.min.js' %>
+<%= javascript_include_tag 'jquery.scrollbar.min.js' %>
+<%= javascript_include_tag 'datepicker.js' %>
+<%= javascript_include_tag 'base.js' %>
+<%= javascript_include_tag 'hotel.js'%>
+<%= javascript_include_tag 'main.js'%>
+<%= javascript_include_tag 'tour-filter.js'%>
+<%= javascript_include_tag 'tour-page.js'%>
+<% end %>
+<%monthes = {
+  "01" => "Января",
+  "02" => "Февраля",
+  "03" => "Марта",
+  "04" => "Апреля",
+  "05" => "Мая",
+  "06" => "Июня",
+  "07" => "Июля",
+  "08" => "Августа",
+  "09" => "Сентября",
+  "10" => "Октября",
+  "11" => "Ноября",
+  "12" => "Декабря"
+}%>
+<div id="sub-header" class="sub-header_hotel xxs-compact" style="background-image:url('<%= asset_path("bg-sub-header-hotel.jpg") %>')">
+</div>
+<div class="tour-page tour-page_2">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+          <div class="col-md-11 col-md-offset-1 xs-nopadding">
+            <div class="tour-page_2-container">
+              <h1 class="tour-page--title"><%= @hotel.name.upcase %></h1>
+              <h5 class="tour-page--location"><%= @hotel.resort.country.name %>, <%= @hotel.airport_distance %> км от аэропорта</h5>
+              <div class="tour-page--rating visible-xs">
+                <ul class="stars">
+                  <% @hotel.stars_count.times do %>
+                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                  <% end %>
+                </ul>
+                <span class="number">~ <%= @hotel.hotel_rate.round(1) %></span>
+              </div>
+              <div class="tour-page-info tour-page_2-info row">
+                <div class="col-md-8 col-sm-8">
+                  <ul class="tour-page--stages">
+                    <li class="tour-page--stage tour-page--stage_success"></li>
+                    <li class="tour-page--stage tour-page--stage_current">Шаг 2. Данные туристов</li>
+                    <li class="tour-page--stage">3</li>
+                  </ul>
+                </div>
+                <div class="col-md-4 col-sm-4 text-right no-rightpadding hidden-xs">
+                  <div class="tour-page--rating">
+                    <ul class="stars">
+                      <% @hotel.stars_count.times do %>
+                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                      <% end %>
+                    </ul>
+                    <span class="number">~ <%= @hotel.hotel_rate.round(1) %></span>
+                  </div>
+                </div>
+              </div>
+              <div class="tour-page-form">
+                <form action="<%=@link%>" method="get" class="form-tourpage" id="payform">
+                  <fieldset>
+                    <h5 style="display: -webkit-box;" class="form-tourpage--header">
+                      Турист #1. <span class="hidden-xs">На него мы оформляем договор</span>
+                      <a href="#" class="form-tourpage--header-toggle"><span class="icons-arrow-up_white"></span></a>
+                    </h5>
+                    <div class="inputs-container">
+                      <span class="visible-xs">На него мы оформляем договор</span>
+                      <div class="form-group row">
+                        <div class="col-sm-4 col-sm-offset-1 hidden-xs">
+                          <label class="control-label">Фамилия*</label>
+                        </div>
+                        <div class="col-sm-7">
+                          <input  name="surname" type="text" class="form-control" placeholder="Ivanov" required>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-4 col-sm-offset-1 hidden-xs">
+                          <label class="control-label">Имя*</label>
+                        </div>
+                        <div class="col-sm-7">
+                          <input name="name" type="text" class="form-control" placeholder="Ivan" required>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-4 col-sm-offset-1 hidden-xs">
+                          <label class="control-label">Электронная почта*</label>
+                        </div>
+                        <div class="col-sm-7">
+                          <input name="email" type="email" class="form-control" placeholder="info@mail.ru" required>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-4 col-sm-offset-1 hidden-xs">
+                          <label class="control-label">Номер телефона*</label>
+                        </div>
+                        <div class="col-sm-7">
+                          <input name="phone" type="text" class="form-control" placeholder="+7 (...)...—..—.." required>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-4 col-sm-offset-1 hidden-xs">
+                          <label class="control-label">Номер загранпаспорта</label>
+                        </div>
+                        <div class="col-sm-7">
+                          <input name="passnum" type="text" class="form-control" placeholder="71 3354587" >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-4 col-sm-offset-1 hidden-xs">
+                          <label class="control-label">Кем выдан</label>
+                        </div>
+                        <div class="col-sm-7">
+                          <input name="issued" type="text" class="form-control" placeholder="ФМС 78008" >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-4 col-sm-offset-1 hidden-xs">
+                          <label class="control-label">Дата выдачи</label>
+                        </div>
+                        <div class="col-sm-7">
+                          <input name="issue_date" type="date" class="form-control" placeholder="09.10.2011" >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-4 col-sm-offset-1 hidden-xs">
+                          <label class="control-label">Действителен до</label>
+                        </div>
+                        <div class="col-sm-7">
+                          <input name="valid_until" type="date" class="form-control" placeholder="" >
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                  <input name="hotel_name"  type="hidden" value="<%=@hotel.name%>">
+                  <input name="depart_date"  type="hidden" value="<%=@tour.depart_date.to_s[8..9]+' '+monthes[@tour.depart_date.to_s[5..6]]%>">
+                  <input name="arrive_date"  type="hidden" value="<%=(@tour.date_end).to_s[8..9]+' '+monthes[(@tour.date_end).to_s[5..6]]%>">
+                  <input name="additional_number"  type="hidden" value="<%=@tour.adults_number.to_i - 1%>">
+                  
+
+                  <input name="search_request_id"  type="hidden" value="<%=@tour.request_id%>">
+                  <input name="offer_id"  type="hidden" value="<%=@tour.offer_id%>">
+                  <input name="source_id"  type="hidden" value="<%=@tour.source_id%>">
+                   <input name="depart_city"  type="hidden" value="<%=@tour.depart_city%>">
+
+                  <input name="tour_id"  type="hidden" value="<%=@tour.id%>">
+                  <%(@tour.adults_number.to_i - 1).times do |i|%> 
+                    <fieldset>
+                    <h5 class="form-tourpage--header">
+                      Турист #<%=i+2%>.
+                      <a href="#" class="form-tourpage--header-toggle"><span class="icons-arrow-up_white"></span></a>
+                    </h5>
+                    <div class="inputs-container">
+                      <div class="form-group row">
+                        <div class="col-sm-4 col-sm-offset-1 hidden-xs">
+                          <label class="control-label">Фамилия</label>
+                        </div>
+                        <div class="col-sm-7">
+                          <input name="surname<%=i+1%>" type="text" class="form-control" placeholder="Ivanov" >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-4 col-sm-offset-1 hidden-xs">
+                          <label class="control-label">Имя</label>
+                        </div>
+                        <div class="col-sm-7">
+                          <input name="name<%=i+1%>" type="text" class="form-control" placeholder="Ivan" >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-4 col-sm-offset-1 hidden-xs">
+                          <label class="control-label">Электронная почта</label>
+                        </div>
+                        <div class="col-sm-7">
+                          <input name="email<%=i+1%>" type="email" class="form-control" placeholder="info@mail.ru" >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-4 col-sm-offset-1 hidden-xs">
+                          <label class="control-label">Номер телефона</label>
+                        </div>
+                        <div class="col-sm-7">
+                          <input name="phone<%=i+1%>" type="text" class="form-control" placeholder="+7 (...)...—..—.." >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-4 col-sm-offset-1 hidden-xs">
+                          <label class="control-label">Номер загранпаспорта</label>
+                        </div>
+                        <div class="col-sm-7">
+                          <input name="passnum<%=i+1%>" type="text" class="form-control" placeholder="71 3354587" >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-4 col-sm-offset-1 hidden-xs">
+                          <label class="control-label">Кем выдан</label>
+                        </div>
+                        <div class="col-sm-7">
+                          <input name="issued<%=i+1%>" type="text" class="form-control" placeholder="ФМС 78008" >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-4 col-sm-offset-1 hidden-xs">
+                          <label class="control-label">Дата выдачи</label>
+                        </div>
+                        <div class="col-sm-7">
+                          <input name="issue_date<%=i+1%>" type="date" class="form-control" placeholder="09.10.2011" >
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-sm-4 col-sm-offset-1 hidden-xs">
+                          <label class="control-label">Действителен до</label>
+                        </div>
+                        <div class="col-sm-7">
+                          <input name="valid_until<%=i+1%>" type="date" class="form-control" placeholder="" >
+                        </div>
+                      </div>
+    
+                      <%end%>
+                      <br>
+                     <!-- <div class="form-group row">
+                        <div class="col-sm-11 col-sm-offset-1">
+                          <label class="custom-checkbox_grey">
+                            <input type="checkbox" required>
+                            <span></span>
+                            <div>
+                              <p>Совершая действия по оплате туристского продукта, я подтверждаю, что ознакомлен и согласен со всеми положениями <a href="#">договора-оферты</a>. Совершение действий по оплате признаю безоговорочным акцептом договора-оферты. Я выражаю свое письменное согласие на обработку персональных данных, которые будут сообщены мной при заключении или в ходе исполнения договора. </p>
+                              <p>Я подтверждаю наличие у меня полномочий на предоставление и обработку персональных данных иных лиц, указанных в заявке/договоре.</p>
+                            </div>
+                          </label>
+                        </div>
+                      </div>-->
+                    </div>
+                  </fieldset>
+                  
+                  
+                  <div class="visible-xs visible-sm">
+                    <div class="row">
+                      <div class="col-sm-11 col-sm-offset-1">
+                        <button type="submit" form="payform" value="submit" class="btn btn-green tour-page-buy">Оформить тур</button>
+                       
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+      </div>
+      <div class="col-md-4 text-center hidden-sm hidden-xs">
+        <div class="tour-page_2-price">
+          <div class="tour-page_2-price--info">
+            <h5>Информация о туре</h5>
+            <ul class="tour-page_2-price--list">
+             <li>
+                <div class="content"><b>Туроператор:</b> <%=@tour.tour_operator%><br> <b>Отель:</b> <%= @hotel.name.upcase %> </div>
+              </li>
+              <li>
+                <div class="icon"><span class="icons-tour-night"></span></div>
+                <div class="content"><%=@tour.nights%> ночей<br> <%= @tour.adults_number %> взрослых</div>
+              </li>
+              <li>
+                <div class="icon"><span class="icons-tour-transport"></span></div>
+                <div class="content"><%=@tour.depart_date.to_s[8..9]+" "+monthes[@tour.depart_date.to_s[5..6]]%><br> <%=(@tour.date_end).to_s[8..9]+" "+monthes[(@tour.date_end).to_s[5..6]]%></div>
+              </li>
+            </ul>
+            <div class="tour-page_2-price--price">
+              Итого:
+              <span><%= number_with_delimiter(@tour.price, locale: :ru) %> <i class="fa fa-rub"></i></span>
+            </div>
+          </div>
+           <button type="submit" form="payform" value="submit" class="btn btn-green tour-page-buy">оформить тур</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,88 @@
+    <div class="col-xs-12 col-sm-6 col-md-6 col-large-4 tour-column feedbackDiv" style="display:none;">
+      <div class="tour-block tour-block-new">
+        <div class="tour-header row">
+          <div class="col-md-12">
+            <h2>
+              Заказ обратного звонка
+            </h2>
+          </div>
+        </div>
+        <div class="tour-desc tour-desc--before-form">Ответим на все вопросы</div>
+        <div class="country-notfound country-notfound--tour">
+          <h2 class="country-notfound-header country-notfound-header--tour"><strong>Не нашли</strong><br> что искали?</h2>
+          <p class="country-notfound-text country-notfound-text--tour">Мы с радостью ответим на все ваши вопросы.<br> Просто оставьте номер Вашего телефона.</p>
+          <form class="country-notfound-form country-notfound-form--tour">
+            <input type="text" id="feedbackPhone" class="form-control phone-mask" placeholder="+7 (___) ___ __ __" required>
+            <button id="feedbackBtn" class="form-send btn btn_black">
+              <span id="feedbackTextBtn" class="text1" style="display:block;">Ок</span>
+              <span class="text2"><i class="fa fa-check" aria-hidden="true"></i></span>
+            </button>
+
+          </form>
+          <p class="country-notfound-call">
+            <span class="text1">Перезвоним за <strong>25 секунд</strong></span>
+            <span class="text2">Спасибо. Ваша заявка принята</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+  <script>
+  $(document).ready(function(){
+  $(".phone-mask").mask("+7 (999) 999 99 99");
+  var isSubmit = false;
+  $('.country-notfound-form').on('submit',function(){
+    var $form = $(this);
+    var $call = $form.next();
+    if(!isSubmit){
+      showSucces();
+    }else{
+      resetForm();
+    }
+    function showSucces(){
+      $form.addClass('country-notfound-form_submit');
+      $form.find('.form-control').fadeOut(100);
+      $form.find('.form-send').find('.text1').fadeOut(100,function(){
+        $form.find('.form-send').find('.text2').fadeIn(200);
+      });
+      $call
+        .addClass('success')
+        .find('.text1').fadeOut(200,function(){
+          $call.find('.text2').fadeIn(300);
+        });
+      isSubmit = true;
+    }
+    function resetForm(){
+      $form.removeClass('country-notfound-form_submit');
+      $form.find('.form-control').val('').delay(300).fadeIn(100);
+      $form.find('.form-send').find('.text2').delay(300).fadeOut(100,function(){
+        $form.find('.form-send').find('.text1').fadeIn(200);
+      });
+      $call
+        .removeClass('success')
+        .find('.text2').fadeOut(200,function(){
+          $call.find('.text1').fadeIn(300);
+        });
+      isSubmit = false;
+    }
+    console.log(isSubmit);
+    return false;
+  });
+
+    $('#feedbackBtn').click(function() {
+    if ($('#feedbackTextBtn').css('display') == 'block') {
+      var token = $( 'meta[name="csrf-token"]' ).attr( 'content' );
+
+      $.ajaxSetup({
+        beforeSend: function ( xhr ) {
+          xhr.setRequestHeader( 'X-CSRF-Token', token );
+        }
+      });
+
+      if ($('#feedbackPhone').val() !== '') {
+        $.post("/feedback_phone", {phone: $('#feedbackPhone').val()});
+      }
+    }
+  });
+});
+  </script>

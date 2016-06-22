@@ -1,0 +1,288 @@
+<% content_for :body do %>
+  <%= javascript_include_tag 'jquery.min.js' %>
+  <%= javascript_include_tag 'jquery.mobile.custom.min.js' %>
+  <%= javascript_include_tag 'bootstrap.min.js' %>
+  <%= javascript_include_tag 'jasny-bootstrap.min.js' %>
+  <%= javascript_include_tag 'moment.js' %>
+  <%= javascript_include_tag 'ru.js' %>
+  <%= javascript_include_tag 'jquery.easing.js' %>
+  <%= javascript_include_tag 'bootstrap-datetimepicker.min.js' %>
+  <%= javascript_include_tag 'selectize.min.js' %>
+  <%= javascript_include_tag 'jquery.quicksand.js' %>
+  <%= javascript_include_tag 'slick.min.js' %>
+  <%= javascript_include_tag 'jquery.fancybox.pack.js' %>
+  <%= javascript_include_tag 'ion.rangeSlider.min.js' %>
+  <%= javascript_include_tag 'jquery.scrollbar.min.js' %>
+  <%= javascript_include_tag 'datepicker.js' %>
+  <%= javascript_include_tag 'main.js' %>
+<% end %>
+<div class="main-slider">
+    <div class="slide" style="background-image:url('<%=asset_path("DEMO/main-slider1.jpg")%>')">
+    <div class="slide-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-offset-6 col-md-6 col-sm-offset-7 col-sm-5">
+            <div class="slide-text">Наши цены<br>стабильные и<br>прозрачные!<br>Никаких<br>скрытых доплат!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="slide" style="background-image:url('<%=asset_path("DEMO/main-slider2.jpg")%>')">
+    <div class="slide-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-offset-6 col-md-6 col-sm-offset-7 col-sm-5">
+            <div class="slide-text">Миллионы туров от крупных туроператоров и в лучшие отели!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="slide" style="background-image:url('<%=asset_path("DEMO/main-slider3.jpg")%>')">
+    <div class="slide-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-offset-6 col-md-6 col-sm-offset-7 col-sm-5">
+            <div class="slide-text">Тысячи радостных путешественников по всему миру – благодаря нам :-)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="slide" style="background-image:url('<%=asset_path("DEMO/main-slider4.jpg")%>')">
+    <div class="slide-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-offset-6 col-md-6 col-sm-offset-7 col-sm-5">
+            <div class="slide-text">Бонусные мили в подарок – за тур от 30 тысяч рублей</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="slide" style="background-image:url('<%=asset_path("DEMO/main-slider5.jpg")%>')">
+    <div class="slide-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-offset-6 col-md-6 col-sm-offset-7 col-sm-5">
+            <div class="slide-text">Мы с Вами на связи до Вашего отдыха, во время и после!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+<div class="main-content">
+  <div class="container">
+     <div class="row">
+       <div class="col-md-5 col-sm-7">
+        <div class="main-roundtour">
+          <div class="main-roundtour-content">
+            <div class="main-roundtour-text">
+              <h2>Подобрать тур</h2>
+             <%=form_tag("/search", method: "get", class: "form-roundtour") do%>
+ <div class="roundtour-city">
+                  Город вылета: <a href="#" id='city' class="roundtour-city--select" value='Москва'>Москва</a>
+                  <div class="roundtour-city--submenu">
+                    <input type="text" name="depart_city" class="form-control roundtour-city--search" value="Москва">
+                    <a href="#" class="roundtour-city--close"><span class="icons-close_orange"></span></a>
+                    <div class="roundtour-city--wrapper scrollbar-inner">
+                      <ul class="roundtour-city--list">
+                      <%@cities.each do |city| %>
+                        <li data-city-id='<%=city.sletat_id%>'><%=city.name%></li>
+                      <%end%>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group roundtour-place--container">
+                 <input id="city-id" type="hidden" name="city_id" value='832' >
+                <input id="place_id" type="hidden" name="place_id" value='4023'>
+                <input id="place_type" type="hidden" name="place_type" value='resort' >
+                <input id="nights_min" type="hidden" name="nights_min" >
+                <input id="nights_max" type="hidden" name="nights_max" >
+                <input id="date_min" type="hidden" name="date_min" >
+                <input id="date_max" type="hidden" name="date_max" >
+                <input id="children" type="hidden" name="children" >
+                <input id="adult" type="hidden" name="adult" value="2">
+                  <a href="#" class="roundtour-place">
+                    <span class="icon icons-location_orange"></span>
+                    <span id='place' class="text">Где хотите отдохнуть?</span>
+                    <script>
+                    $('#place').click(function(){$(this).html('');})
+                    </script>
+                  </a>
+                  <div class="roundtour-place--submenu">
+                    <input type="text" name="arrive_place" id="place1" autocomplete="off" class="form-control roundtour-place--search" value="" placeholder="Где хотите отдохнуть?">
+                    <span class="roundtour-place--searchicon icons-location_orange"></span>
+                    <div class="roundtour-place--wrapper scrollbar-inner">
+                      <ul id="data" class="roundtour-place--list"></ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                 <a href="#" class="roundtour-date" data-open="blur">
+                    <span class="icon icons-calendar_orange"></span>
+                    <span class="text">
+                      <span id="month" class="roundtour-date--months">Выберите дату</span>
+                      <span id="nights" class="roundtour-date--nights">и количество ночей</span>
+                    </span>
+                  </a>
+                </div>
+                <div class="roundtour-people">
+                  <div class="roundtour-people--active">
+                    <ul class="roundtour-people--adults">
+                      <li>
+                        <a href="#" class="roundtour-people--remove"><i class="fa fa-times"></i></a>
+                        <span class="icons-people-adult_white hidden-xs hidden-sm"></span>
+                        <span class="icons-people-adultsm_white visible-sm visible-xs"></span>
+
+                      </li>
+                      <li>
+                        <a href="#" class="roundtour-people--remove"><i class="fa fa-times"></i></a>
+                        <span class="icons-people-adult_white hidden-xs hidden-sm"></span>
+                        <span class="icons-people-adultsm_white visible-sm visible-xs"></span>
+                      </li>
+                    </ul>
+                    <ul class="roundtour-people--childrens">
+                      <!--
+                      <li>
+                        <a href="#" class="roundtour-people--remove"><i class="fa fa-times"></i></a>
+                        <span class="icons-people-children_white hidden-xs hidden-sm"></span>
+                        <span class="icons-people-childrensm_white visible-sm visible-xs"></span>
+                        <div class="roundtour-people--year">2</div>
+                      </li>
+                      -->
+                    </ul>
+                  </div>
+                  <a href="#" class="roundtour-people--addadults">
+                    <span class="text icons-plus_orange"></span>
+                    <span class="icon icons-people-adult_orange hidden-xs hidden-sm"></span>
+                    <span class="icon icons-people-adultsm_orange visible-sm visible-xs"></span>
+                  </a>
+                  <div class="roundtour-people--addchildrens-wrapper">
+                    <a href="#" class="roundtour-people--addchildrens">
+                      <span class="text icons-plus_orange"></span>
+                      <span class="icon icons-people-children_orange hidden-xs hidden-sm"></span>
+                      <span class="icon icons-people-childrensm_orange visible-sm visible-xs"></span>
+                    </a>
+                    <div class="roundtour-people--years scrollbar-inner">
+                      <ul>
+                        <li>1 год</li>
+                        <li>2 года</li>
+                        <li>3 года</li>
+                        <li>4 года</li>
+                        <li>5 лет</li>
+                        <li>6 лет</li>
+                        <li>7 лет</li>
+                        <li>8 лет</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="roundtour-price--wrapper">
+                  <input type="text" class="roundtour-price" name="roundtour-price" value="" />
+                </div>
+                <div class="roundtour-button">
+                  <button class="btn btn-black btn-block">
+                    <span class="text">подобрать сейчас</span>
+                    <span class="icon icons-search_white"></span>
+                  </button>
+                </div>
+<%end%>
+
+            </div>
+          </div>
+        </div>
+       </div>
+       <div class="col-md-offset-1 col-md-6 col-sm-5">
+         <div class="main-offer-wrapper">
+         
+           <h3 class="visible-xs">Готовые решения</h3>
+           <div id="slider" class="main-offer-slider">
+              <% @countries.each_slice(2) do |countries_pair| %>
+                <div class="slide">
+                <% countries_pair.each do |country| %>
+                  <a id="poisk" data-open="blur" href="#" class="ready-offer" style="margin: 5px 5px 10px;
+                    position: relative;
+                    -moz-border-radius: 4px;
+                    -webkit-border-radius: 4px;
+                    border-radius: 4px;
+                    box-shadow: 0 0 5px rgba(0, 0, 0, 0.28);
+                    overflow: hidden;
+                    display: block;
+                    -moz-transition: all .3s ease;
+                    -o-transition: all .3s ease;
+                    -webkit-transition: all .3s ease;
+                    transition: all .3s ease;
+                    height: 118px !important;"
+                    >
+                    <div class="ready-offer--img" 
+                    style=" -moz-transition: all .3s ease;
+                    -o-transition: all .3s ease;
+                    -webkit-transition: all .3s ease;
+                    transition: all .3s ease;
+                    width: auto;
+                    height: auto;
+                    min-height:100%;
+                    min-width:100%;
+                    display: block;"
+                    >
+                    <%= image_tag country.header_img.url(:thumb)%></div>
+                    <div class="ready-offer--content">
+                     <div class="ready-offer--sale"><%=country.discount%>%</div>
+                     <h4 class="ready-offer--title" data-country-id="<%=country.id%>"><%=country.name%></h4>
+                      <span class="ready-offer--price ready-offer--price_blue">от <%=country.price%> <i class="fa fa-rub"></i></span>
+                   </div>
+                 </a>
+                <% end %>
+               </div>
+              <% end %>
+           </div>
+         </div>
+       </div>
+     </div>
+  </div>
+  <div class="roundtour-date--wrapper">
+    <div class="container">
+      <div class="col-md-offset-5 col-md-7">
+        <div class="roundtour-date--content">
+          <a href="#" class="roundtour-date--close"><span class="icons-close_grey"></span></a>
+          <h4>Выберите количество ночей:</h4>
+          <ul class="roundtour-date--night">
+                        <li class="">2</li>
+                        <li class="">3</li>
+                        <li class="">4</li>
+                        <li class="">5</li>
+                        <li class="">6</li>
+                        <li class="active">7</li>
+                        <li class="">8</li>
+                        <li class="">9</li>
+                        <li class="">10</li>
+                        <li class="">11</li>
+                        <li class="">12</li>
+                        <li class="">13</li>
+                        <li class="">14</li>
+                        <li class="">15</li>
+                        <li class="">16</li>
+                        <li class="">17</li>
+                        <li class="">18</li>
+                        <li class="">19</li>
+                        <li class="">20</li>
+                        <li>более 20</li>
+          </ul>
+          <hr>
+          <h4>Выберите период отдыха:</h4>
+          <div class="roundtour-date--month"></div>
+          <input type="hidden" class="select-date" value="">
+          <div class="roundtour-date--save">
+            <a href="#" class="btn btn-black roundtour-date--save">Сохранить</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+

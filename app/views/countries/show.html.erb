@@ -1,0 +1,743 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<title>Поедем в тур</title>
+
+<!-- PRELOADER -->
+<style>
+  @-webkit-keyframes square-spin {
+    25% {
+      -webkit-transform: perspective(100px) rotateX(180deg) rotateY(0deg);
+      transform: perspective(100px) rotateX(180deg) rotateY(0deg);
+      background:#ddd;
+    }
+
+    50% {
+      -webkit-transform: perspective(100px) rotateX(180deg) rotateY(180deg);
+      transform: perspective(100px) rotateX(180deg) rotateY(180deg);
+      background:#365;
+    }
+
+    75% {
+      -webkit-transform: perspective(100px) rotateX(0deg) rotateY(180deg);
+      transform: perspective(100px) rotateX(0deg) rotateY(180deg);
+      background:#954;
+    }
+
+    100% {
+      -webkit-transform: perspective(100px) rotateX(0deg) rotateY(0deg);
+      transform: perspective(100px) rotateX(0deg) rotateY(0deg);
+      background:#456;
+    }
+  }
+
+  @keyframes square-spin {
+    25% {
+      -webkit-transform: perspective(100px) rotateX(180deg) rotateY(0deg);
+      transform: perspective(100px) rotateX(180deg) rotateY(0deg);
+      background:#ddd;
+    }
+
+    50% {
+      -webkit-transform: perspective(100px) rotateX(180deg) rotateY(180deg);
+      transform: perspective(100px) rotateX(180deg) rotateY(180deg);
+      background:#365;
+    }
+
+    75% {
+      -webkit-transform: perspective(100px) rotateX(0deg) rotateY(180deg);
+      transform: perspective(100px) rotateX(0deg) rotateY(180deg);
+      background:#954;
+    }
+
+    100% {
+      -webkit-transform: perspective(100px) rotateX(0deg) rotateY(0deg);
+      transform: perspective(100px) rotateX(0deg) rotateY(0deg);
+      background:#456;
+    }
+  }
+
+  #preloader{
+    display:block;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background:#fff;
+    z-index:9999999;
+    visibility:visible;
+    -webkit-transition: visibility .3s;
+    -moz-transition: visibility .3s;
+    -ms-transition: visibility .3s;
+    -o-transition: visibility .3s;
+    transition: visibility .3s;
+  }
+  #preloader > div {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    margin:auto;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    width: 50px;
+    height: 50px;
+    background:#456;
+    -webkit-animation: square-spin 2s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+    animation: square-spin 2s 0s cubic-bezier(.09, .57, .49, .9) infinite; }
+</style>
+<script>
+  window.onload = function(){document.getElementById('preloader').style.display='none'};
+  window.onbeforeunload  = function(){document.getElementById('preloader').style.display='block'};
+</script>
+
+<%= csrf_meta_tags %>
+<!-- /PRELOADER -->
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+<%= stylesheet_link_tag 'bootstrap.min-country', media: 'all' %>
+<%= stylesheet_link_tag 'jasny-bootstrap.min-country', media: 'all' %>
+<%= stylesheet_link_tag 'bootstrap-datetimepicker-country', media: 'all' %>
+<%= stylesheet_link_tag 'selectize.bootstrap3-country', media: 'all' %>
+<%= stylesheet_link_tag 'font-awesome.min-country', media: 'all' %>
+<%= stylesheet_link_tag 'jquery.fancybox-country', media: 'all' %>
+<%= stylesheet_link_tag 'ion.rangeSlider-country', media: 'all' %>
+<%= stylesheet_link_tag 'slick-country', media: 'all' %>
+<%= stylesheet_link_tag 'datepicker-country', media: 'all' %>
+<%= stylesheet_link_tag 'style-country', media: 'all' %>
+
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+<script>var ready=function(){function g(){if(!a.isReady){try{document.documentElement.doScroll("left")}catch(b){setTimeout(g,1);return}a.ready()}}var e,c,n={"[object Boolean]":"boolean","[object Number]":"number","[object String]":"string","[object Function]":"function","[object Array]":"array","[object Date]":"date","[object RegExp]":"regexp","[object Object]":"object"},a={isReady:!1,readyWait:1,holdReady:function(b){b?a.readyWait++:a.ready(!0)},ready:function(b){if(!0===b&&!--a.readyWait||!0!==b&&!a.isReady){if(!document.body)return setTimeout(a.ready,1);a.isReady=!0;!0!==b&&0<--a.readyWait||e.resolveWith(document,[a])}},bindReady:function(){if(!e){e=a._Deferred();if("complete"===document.readyState)return setTimeout(a.ready,1);if(document.addEventListener)document.addEventListener("DOMContentLoaded",c,!1),window.addEventListener("load",a.ready,!1);else if(document.attachEvent){document.attachEvent("onreadystatechange",c);window.attachEvent("onload",a.ready);var b=!1;try{b=null==window.frameElement}catch(f){}document.documentElement.doScroll&&b&&g()}}},_Deferred:function(){var b=[],f,c,e,h={done:function(){if(!e){var c=arguments,d,g,k,m,l;f&&(l=f,f=0);d=0;for(g=c.length;d<g;d++)k=c[d],m=a.type(k),"array"===m?h.done.apply(h,k):"function"===m&&b.push(k);l&&h.resolveWith(l[0],l[1])}return this},resolveWith:function(a,d){if(!e&&!f&&!c){d=d||[];c=1;try{for(;b[0];)b.shift().apply(a,d)}finally{f=[a,d],c=0}}return this},resolve:function(){h.resolveWith(this,arguments);return this},isResolved:function(){return!(!c&&!f)},cancel:function(){e=1;b=[];return this}};return h},type:function(a){return null==a?String(a):n[Object.prototype.toString.call(a)]||"object"}};document.addEventListener?c=function(){document.removeEventListener("DOMContentLoaded",c,!1);a.ready()}:document.attachEvent&&(c=function(){"complete"===document.readyState&&(document.detachEvent("onreadystatechange",c),a.ready())});return function(b){a.bindReady();a.type(b);e.done(b)}}();</script>
+
+  <script>!function(t){function e(){i=document.querySelectorAll(".button-widget-open");for(var e=0;e<i.length;e++)"true"!=i[e].getAttribute("init")&&(options=JSON.parse(i[e].closest('.'+t).getAttribute("data-settings")),i[e].setAttribute("onclick","alert('"+options.errorMessage+"(0000)'); return false;"))}function o(t,e,o,n,i,r){var s=document.createElement(t);for(var a in e)s.setAttribute(a,e[a]);s.readyState?s.onreadystatechange=o:(s.onload=n,s.onerror=i),r(s)}function n(){for(var t=0;t<i.length;t++){var e=i[t];if("true"!=e.getAttribute("init")){options=JSON.parse(e.getAttribute("data-settings"));var o=new MangoWidget({host:window.location.protocol+'//'+options.host,id:options.id,elem:e,message:options.errorMessage});o.initWidget(),e.setAttribute("init","true"),i[t].setAttribute("onclick","")}}}host=window.location.protocol+"//lk.mango-office.ru/";var i=document.getElementsByClassName(t);o("link",{rel:"stylesheet",type:"text/css",href:host+"widget/widget-button.css"},function(){},function(){},e,function(t){document.documentElement.insertBefore(t,document.documentElement.firstChild)}),o("script",{type:"text/javascript",src:host+"js/widget/m.c.w-min.js"},function(){("complete"==this.readyState||"loaded"==this.readyState)&&n()},n,e,function(t){document.documentElement.appendChild(t)})}("mango-callback");</script>
+</head>
+<body class="page_country" style="">
+<script>document.write('<div id="preloader"><div></div></div>')</script>
+<div class="canvas" id="site-wrap">
+  <div id="site-overlay"></div>
+  <%= render 'home/header' %>
+
+<nav id="country-map" class="navmenu navmenu-default navmenu-fixed-right offcanvas country-map-wrapper" role="navigation">
+  <button class="country-map-close" data-target="#country-map" data-toggle="offcanvas" data-canvas="#site-wrap"><span class="icons-close_grey"></span></button>
+  <div class="country-map" id="countryMap"></div>
+</nav>
+
+
+<div id="sub-header" class="sub-header sub-header_country xxs-compact" style="background:#f4f4f4;">
+</div>
+
+<!-- country begin -->
+<div class="country">
+  <!-- country header begin -->
+
+  <% if @country.header_img.url == "/header_imgs/original/missing.png" %>
+    <div class="country-header">
+  <% else %>
+    <div class="country-header" style="background: url(<%= image_path @country.header_img.url %>) top center no-repeat;">
+  <% end %>
+
+    <div class="country-header-top">
+      <div class="container">
+        <h1 class="hotel-name">ТУРЫ <%= @country.case_1 %></h1>
+        <ul class="hotel-breadcrumbs">
+          <li><a href="/countries">Все страны</a></li>
+          <li class="sep">/</li>
+          <li><%= @country.name %> — поиск тура</li>
+        </ul>
+        <hr>
+      </div>
+    </div>
+    <div class="country-header-search">
+      <div class="hotel-search--container">
+        <div class="hotel-search--form">
+          <%= render 'form' %>
+        </div>
+        <!-- select date -->
+        <div class="select-date-nobutton country-search--date hotel-search--date">
+          <div class="roundtour-date--wrapper">
+            <div class="roundtour-date--content">
+              <div class="roundtour-date--top">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-3 no-rightpadding"><h4>Выберите количество ночей:</h4></div>
+                    <div class="col-md-8 no-rightpadding">
+                      <ul class="roundtour-date--night">
+                                                <li class="">2</li>
+                                                <li class="">3</li>
+                                                <li class="">4</li>
+                                                <li class="">5</li>
+                                                <li class="">6</li>
+                                                <li class="active">7</li>
+                                                <li class="">8</li>
+                                                <li class="">9</li>
+                                                <li class="">10</li>
+                                                <li class="">11</li>
+                                                <li class="">12</li>
+                                                <li class="">13</li>
+                                                <li class="">14</li>
+                                                <li class="">15</li>
+                                                <li class="">16</li>
+                                                <li class="">17</li>
+                                                <li class="">18</li>
+                                                <li class="">19</li>
+                                                <li class="">20</li>
+                                                <li>более 20</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="roundtour-date--days">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-3"><h4>Выберите период отдыха:</h4></div>
+                    <div class="col-md-8">
+                      <div class="roundtour-date--month"></div>
+                      <input type="hidden" class="select-date" value="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end -->
+      </div>
+    </div>
+  </div>
+  <!-- country header end -->
+
+  <!--<#%= render 'chart' %>-->
+
+  <% if @resorts.present? %>
+  <!-- country resorts popular begin -->
+  <div class="country-resorts country-resorts_popular">
+    <div class="container">
+      <h3 class="country-part-header">Популярные курорты <%= @country.case_2 %></h3>
+      <div class="country-resorts-list">
+        <%= render 'resort_items', locals: {resorts: @resorts} %>
+      </div>
+    </div>
+  </div>
+  <!-- country resorts popular end -->
+  <% end %>
+
+  <% if @resorts_without_season.present? %>
+  <!-- country resorts begin -->
+  <div class="country-resorts">
+    <div class="container">
+      <h3 class="country-part-header">сезон в этих курортах еще не начался</h3>
+      <div class="country-resorts-list">
+        <% @resorts_without_season.each do |resort| %>
+          <div class="country-resorts-item">
+            <a href="#">
+              <div class="country-resorts-item-img hidden-xs">
+                <img src="<%= resort.photo.image.url(:minim) if resort.photo.present? %>" alt="">
+              </div>
+              <div class="country-resorts-item-content">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-4 col-sm-6">
+                        <h3 data-href="/search?utf8=✓&depart_city=Москва&arrive_place=&city_id=832&place_id=<%= resort.id %>&place_type=resort&nights_min=7&nights_max=10&date_min=<%= date_filter %>&date_max=&children=&adult=2" class="country-resorts-item-header" title="<%= resort.name %>"><%= resort.name %></h3>
+                        <h6 class="country-resorts-item-country"><%= @country.name %></h6>
+                      </div>
+                      <div class="country-resorts-item-img visible-xs">
+                        <img src="<%= resort.photo.image.url(:original) if resort.photo.present? %>" alt="">
+                      </div>
+                      <div class="col-md-8 col-sm-12 no-rightpadding">
+                        <ul class="country-resorts-item-info">
+                          <% if @weather[resort.id].present? %>
+                            <li class="country-resorts-item-info--item country-resorts-item-info--item_weather">
+                              <span class="strong">Погода:</span> <%= @weather[resort.id]['mintempC'] %>°C до <%= @weather[resort.id]['maxtempC'] %>°C
+                            </li>
+                            <li class="country-resorts-item-info--item country-resorts-item-info--item_water">
+                              Вода — <%= @weather[resort.id]['waterTemp_C'] %>°C
+                            </li>
+                          <% end %>
+                          <li class="country-resorts-item-info--item country-resorts-item-info--item_beach">
+                            <span class="strong">Пляж:</span> &nbsp;<%= resort.beach_names %><br>
+                            <span class="strong">Сезон:</span> <%= resort.season_names %>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 hidden-sm">
+                    <div class="country-resorts-item-buttons">
+                      <% if price = @min_prices[resort.id] %>
+                        <button class="btn btn_brown country-resorts-item-price" onclick="location.href='/search?utf8=✓&depart_city=Москва&arrive_place=&city_id=832&place_id=<%= resort.id %>&place_type=resort&nights_min=7&nights_max=10&date_min=<%= date_filter %>&date_max=&children=&adult=2'">
+                          <span><%= number_with_delimiter(price, locale: :ru) %></span><i class="fa fa-rub" aria-hidden="true"></i>
+                        </button>
+                      <% else %>
+                        <button class="btn btn_brown country-resorts-item-price country-resorts-item-price_learn" onclick="location.href='/search?utf8=✓&depart_city=Москва&arrive_place=&city_id=832&place_id=<%= resort.id %>&place_type=resort&nights_min=7&nights_max=10&date_min=<%= date_filter %>&date_max=&children=&adult=2'">Узнать цену</button>
+                      <% end %>
+                      <!--<button class="btn btn_black country-resorts-item-aboutbtn">О курорте</button>-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <!-- country resorts eng -->
+  <% end %>
+
+  <!-- country info begin -->
+  <div class="country-info">
+    <div class="container">
+      <h2 class="country-info-header"><% if @country.description.present? %>Подробнее <%= @country.case_3 %><% end %></h2>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="country-info-text">
+            <%= raw @country.description %>
+          </div>
+        </div>
+        <% if @country.latitude.present? && @country.longitude.present? %>
+          <div class="col-md-4 text-right hidden-xs">
+            <div class="country-info-main">
+              <div class="country-info-hotels">
+                <a href="#country-map" data-recalc="false" data-toggle="offcanvas" data-canvas="#site-wrap">
+                  <div class="country-info-hotels-img hidden-sm hidden-xs">
+                    <img src="/img/country-info-hotels.png" alt="">
+                  </div>
+                  <div href="#" class="country-info-hotels-location">
+                    <span class="icons-location_white_big icon-white"></span>
+                    <span class="icons-location_black_big icon-black"></span>
+                  </div>
+                  <div class="country-info-hotels-numbers">
+                    <%= @hotels.count %> <span><%= Russian.p(@hotels.count, "отель", "отели", "отелей") %></span> <span class="name"><%= @country.case_2 %></span>
+                  </div>
+                </a>
+              </div>
+              <!--<div class="hidden-sm hidden-xs">
+                <div class="country-info-select">
+                  <select class="form-control" name="city">
+                    <option>Муйне</option>
+                    <option>Муйне</option>
+                  </select>
+                  <select class="form-control" name="month">
+                    <option>Март</option>
+                    <option>Апрель</option>
+                  </select>
+                </div>
+                <div class="country-info-weather">
+                  <span class="day">+25°C</span>
+                  <span class="night">+20°C</span>
+                </div>
+              </div>-->
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <!-- country info end -->
+
+  <% if @country.photos.present? %>
+  <!-- country photo begin -->
+  <div class="country-photo hidden-xs">
+    <div class="container">
+      <div class="country-photo-slider">
+        <% @country.photos.each do |image| %>
+          <div class="item">
+            <a href="<%= image.image.url(:original) %>" class="fancybox" rel="country-gallery">
+              <img src="<%= image.image.url(:thumb) %>" alt="">
+              <span class="country-photo-zoom"><i class="fa fa-search-plus" aria-hidden="true"></i></span>
+            </a>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <!-- country photo end -->
+  <% end %>
+
+  <% if @country.youtube_link_country.present? %>
+    <!-- country video begin -->
+    <div class="country-video hidden-xs">
+      <div class="container">
+        <a style="background: url('<%= image_path @country.header_img.url %>') top center no-repeat;" href="<%= @country.youtube_link_country %>" data-rel="media" class="country-video-link fancybox">
+          <div class="country-video-content">
+            <h3 class="country-video-name"><%= @country.name %></h3>
+            <h5 class="country-video-helptext">Презентационный ролик</h5>
+            <span class="country-video-icon"><i class="fa fa-play" aria-hidden="true"></i></span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <!-- country video end -->
+  <% end %>
+
+  <% if @popular_resorts.present? %>
+  <!-- country resorts links begin -->
+  <div class="country-resorts-links">
+    <div class="container">
+      <h3 class="country-part-header">популярные курорты <%= @country.case_2 %></h3>
+      <div class="country-resorts-links-list" style='width: 112%;'>
+        <div class="row">
+
+          <div class="col-md-3 col-sm-4">
+            <ul class="country-resorts-links-menu">
+              <% @popular_resorts[0..4].to_a.each do |resort| %>
+                <li>
+                  <a href="#"><%= resort.name %></a>
+                  <span class="balls"><%= resort.hotel_rate %></span>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+
+          <% @popular_resorts[5..19].to_a.in_groups_of(5, false) do |group| %>
+            <div class="col-md-3 col-sm-4 hidden-xs">
+              <ul class="country-resorts-links-menu">
+                <% group.each do |resort| %>
+                  <li>
+                    <a href="#"><%= resort.name %></a>
+                    <span class="balls"><%= resort.hotel_rate %></span>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- country resorts links end -->
+  <% end %>
+
+  <!-- country notfound begin -->
+  <div class="country-notfound">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-sm-7">
+          <h2 class="country-notfound-header"><strong>Не нашли</strong> что искали?</h2>
+          <p class="country-notfound-text">Мы с радостью ответим на все ваши вопросы.<br> Просто оставьте номер Вашего телефона.</p>
+        </div>
+        <div class="col-md-4 col-sm-5">
+          <form class="country-notfound-form">
+            <input type="text" id="feedbackPhone" class="form-control phone-mask" placeholder="+7 (___) ___ __ __" required>
+            <button id="feedbackBtn" class="form-send btn btn_black mango-callback button-widget-open">
+              <span id="feedbackTextBtn" class="text1" style="display:block;">Ок</span>
+              <span class="text2"><i class="fa fa-check" aria-hidden="true"></i></span>
+            </button>
+
+          </form>
+          <p class="country-notfound-call">
+            <span class="text1">Перезвоним за <strong>25 секунд</strong></span>
+            <span class="text2">Спасибо. Ваша заявка принята</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- country notfound end -->
+
+</div>
+<!-- country end -->
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+<div class="container-fluid footer-container">
+  <footer class="row">
+    <a href="tel:88005005316" class="col-xs-12 footer-phone visible-xs">8 800 500-53-16</a>
+    <div class="clearfix visible-xs"></div>
+    <div class="col-md-5 col-md-offset-1 col-sm-12">
+      <div class="row">
+        <div class="footer-out-pages col-sm-2 col-xs-2 pull-right visible-sm visible-xs">
+          <a href="#" class="fa fa-facebook"></a>
+          <a href="#" class="fa fa-youtube"></a>
+          <a href="#" class="fa fa-instagram"></a>
+          <a href="#" class="fa fa-vk"></a>
+        </div>
+        <div class="col-md-6 col-sm-5 col-xs-10">
+          <ul class="nav-footer">
+            <li><a href="/about">О компании</a></li>
+            <li><a href="/about#footer-map">Точки оформления</a></li>
+            <li><a href="/operators">Туроператоры</a></li>
+            <li><a href="/countries">Отели по странам</a></li>
+          </ul>
+        </div>
+        <div class="col-md-6 col-sm-5 col-xs-10">
+          <ul class="nav-footer">
+            <li><a href="/countries">Туры по странам</a></li>
+            <li><a href="/about#about-comments">Отзывы клиентов</a></li>
+            <li><a href="/about#faq">Частные вопросы</a></li>
+            <li><a href="/blog">Блог</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix visible-sm"></div>
+    <div class="col-md-5">
+      <hr class="visible-xs">
+      <div class="copyright">
+        <p>&copy; 2016 PoedemVtur</p>
+        <p>Вся информация, размещенная на сайте, носит исключительно информационный характер и не является рекламой и публичной офертой</p>
+        <p>ООО "ЕВРОФАНТАЗИЯ", ОГРН 1057747284319<br>
+          <a style="text-decoration: none; color: #938765;" href="/about#footer-map">г. Москва, ул. Пятницкая, д. 43, стр. 3, офис 5</a>
+        </p>
+      </div>
+      <a href="tel:88005005316" class="footer-phone hidden-xs">8 800 500-53-16</a>
+      <div class="footer-out-pages hidden-sm hidden-xs">
+        <a href="#" class="fa fa-facebook">
+
+          <svg width="140%" height="140%">
+            <circle class="path" r="22" cx="25" cy="24" fill="transparent" stroke-width="3"></circle>
+          </svg>
+
+        </a>
+        <a href="#" class="fa fa-youtube">
+          <svg width="140%" height="140%">
+            <circle class="path" r="22" cx="25" cy="24" fill="transparent" stroke-width="3"></circle>
+          </svg>
+        </a>
+        <a href="#" class="fa fa-instagram">
+          <svg width="140%" height="140%">
+            <circle class="path" r="22" cx="25" cy="24" fill="transparent" stroke-width="3"></circle>
+          </svg>
+        </a>
+        <a href="#" class="fa fa-vk">
+          <svg width="140%" height="140%">
+            <circle class="path" r="22" cx="25" cy="24" fill="transparent" stroke-width="3"></circle>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div id="design-copy" class="hidden-xs">Дизайн сайта - OPENPIXEL</div>
+    <div id="stt"></div>
+  </footer>
+</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<%= javascript_include_tag 'country.js' %>
+
+<script>
+  $(document).ready(function() {
+    $('.country-resorts-item-header').click(function() {
+      $(location).attr('href', $(this).data('href'));
+    });
+
+    $('#place').click(function() {
+      $(this).text('');
+    });
+
+    $('.roundtour-place--list').click(function() {
+      $li = $(this).find('li');
+      $curort = $(this).find('li .roundtour-place--info .roundtour-place--country');
+
+      $('#place_id').val($li.data('id'));
+      $('#place_type').val($li.data('type'));
+      $('.roundtour-place--submenu').css('display', 'none');
+      $('#place').text($curort.html());
+    });
+
+    $('.roundtour-city--list li').click(function() {
+      $('#city-id').val($(this).attr('data-city-id'));
+    });
+
+    $('.roundtour-people--addadults').click(function() {
+      $adult_count = $('.roundtour-people--adults li').size();
+
+      $('#adult').val($adult_count);
+    });
+
+    $('#feedbackBtn').click(function() {
+      if ($('#feedbackTextBtn').css('display') == 'block') {
+        var token = $( 'meta[name="csrf-token"]' ).attr( 'content' );
+
+        $.ajaxSetup({
+          beforeSend: function ( xhr ) {
+            xhr.setRequestHeader( 'X-CSRF-Token', token );
+          }
+        });
+
+        if ($('#feedbackPhone').val() !== '') {
+          $.post("/feedback_phone", {phone: $('#feedbackPhone').val()});
+        }
+      }
+    });
+
+    $('#place1').on('keyup', function() {
+      $.get('/ajax?p='+ $(this).val(), function( data ) {
+         $( "#data" ).html('');
+         if ((data)['resorts'].length == 0 && (data)['hotels'].length == 0 && (data)['countries'].length == 0){
+            $('<li data-id="" data-type="">\
+               <div class="roundtour-place--info"><h4 class="roundtour-place--curort">Ничего не найдено!</h4> \
+               </li>').appendTo( "#data" );
+         }
+         $.each(data, function( index, value ) {
+           $.each(value, function (index, data) {
+             if (data.type == 'hotel'){
+               if(data.image){
+                    var str = '<div class="roundtour-place--img"><img width="72" height="40" src="'+data.image+'"></div>';
+                }
+                else{
+                    var str = '';
+                }
+               $('<li data-id='+data.id+' data-type='+data.type+'>\
+                   <div class="roundtour-place--icon"><span class="icons-home"></span></div>\
+                   <div class="roundtour-place--info"><h4 class="roundtour-place--curort">'+ data.name +'</h4> \
+                   <span class="roundtour-place--country">'+ data.country +'</span></div>'+str+' \
+                   </li>').appendTo( "#data" );
+
+           }
+           else if(data.type == 'resort')
+           {
+               $('<li data-id='+data.id+' data-type='+data.type+'>\
+                   <div class="roundtour-place--icon"><span class="icons-location"></span></div>\
+                   <div class="roundtour-place--info"><h4 class="roundtour-place--curort">'+ data.name +'</h4> \
+                   <span class="roundtour-place--country">'+ data.country +'</span></div> \
+                   <div class="roundtour-place--img"><img src="https://maps.googleapis.com/maps/api/staticmap?center='+data.name+'+&zoom=13&size=72x40&key=AIzaSyDHpsDau54dGzGPOwFZvwfbf5Z_FzW2D0k"></div> \
+                   </li>').appendTo( "#data" );
+           }
+           else
+           {
+             $('<li data-id='+data.id+' data-type='+data.type+'>\
+               <div class="roundtour-place--icon"><span class="icons-location"></span></div>\
+               <div class="roundtour-place--info"><h4 class="roundtour-place--curort">'+ data.name +'</h4> \
+               <span class="roundtour-place--country">'+ data.country +'</span></div> \
+               <div class="roundtour-place--img"><img width="72" height="40" src="'+data.flag+'"></div> \
+               </li>').appendTo( "#data" );}
+          });
+        });
+      });
+    });
+  });
+
+  function dateSave(){
+    var night = $('.roundtour-date--night li');
+    var nightMin = night.filter('.active').first().text();
+    var nightMax = night.filter('.active').last().text();
+    var nightResult;
+    if(nightMin.indexOf(nightMax)){
+      $('#nights_min').val(nightMin);
+      $('#nights_max').val(nightMax);
+      nightResult = 'на ' + nightMin + '-' + nightMax + ' ночей';
+    } else{
+      $('#nights_min').val(nightMin);
+       nightResult = 'на ' + nightMin + ' ночей';
+    }
+
+    var month = $('.select-date').val();
+
+    var arrayMonth, monthResult;
+    if(month!=''){
+      arrayMonth = month.replace(/\s+/g, '');
+      arrayMonth = arrayMonth.split("-");
+      if(arrayMonth[0]==arrayMonth[1]){
+        $('#date_min').val(arrayMonth[0]);
+        monthResult = month.split("-");
+        month = monthResult[0];
+      }
+      $('#date_max').val(arrayMonth[1]);
+      $('#date_min').val(arrayMonth[0]);
+      month = month + ', '
+    }else{
+      month = 'Месяцев';
+    }
+    $('.roundtour-date--months').text(month);
+    $('.roundtour-date--nights').text(nightResult);
+  }
+
+  function init() {
+      var mapOptions = {
+        zoom: 6,
+        center: new google.maps.LatLng(<%= @country.latitude.present? ? @country.latitude : 0.0 %>, <%= @country.longitude.present? ? @country.longitude : 0.0 %>),
+        styles: [{
+          "featureType":"all",
+          "elementType":"all",
+          "stylers":[
+            { "saturation": -100 },
+            { "gamma" : 0.5 }
+          ]
+        }],
+        zoomControl: true,
+        scaleControl: true,
+        mapTypeControl: false
+      };
+      var mapElement = document.getElementById('countryMap');
+
+      var map = new google.maps.Map(mapElement, mapOptions);
+
+      <% @hotels.each do |hotel| %>
+        <% next if hotel.latitude.blank? || hotel.longitude.blank? %>
+        new google.maps.Marker({
+          position: new google.maps.LatLng(<%= hotel.latitude %>, <%= hotel.longitude %>),
+          map: map,
+          title: '<%= hotel.name %>',
+          icon : '/img/map/marker.png'
+        });
+      <% end %>
+  }
+
+  function paginateResortItems(page) {
+    $('.country-resorts-button').remove();
+
+    $.get('/resort_items/<%= @country.id %>/' + page, function(data) {
+      $('.country-resorts_popular .country-resorts-list').append(data);
+    });
+  }
+</script>
+
+<style>
+.page_country #all-header .header-link {
+    margin-top: 15px;
+}
+</style>
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter37331565 = new Ya.Metrika({
+                    id:37331565,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true,
+                    webvisor:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/37331565" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+</body>
+</html>

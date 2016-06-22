@@ -1,0 +1,45 @@
+/* CSS Document */
+.tour-search-preload {
+  width: 100%;
+  padding: 20px 0;
+  text-align: center;
+}
+.tour-search-preload--spinner {
+  margin: 20px 0;
+  line-height: 44px;
+  display: inline-block;
+}
+.tour-search-preload--spinner .icon {
+  display: inline-block;
+  background: image-url("spinner.gif") center center no-repeat;
+  width: 44px;
+  height: 44px;
+  margin-right: 20px;
+  float: left;
+}
+.tour-search-preload--spinner .text {
+  font-size: 16px;
+  font-family: 'Roboto';
+}
+.tour-search-preload--advertising {
+  display: inline-block;
+  margin: 15px 0 0;
+  width: 100%;
+}
+.tour-search-preload--advertising img {
+  max-width: 100%;
+  height: auto;
+}
+.tour-search-preload--advertising iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.tour-search-preload--advertising.video {
+  position: relative;
+  height: 0;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+}

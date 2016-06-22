@@ -1,0 +1,8 @@
+$('#tours').html('<%= @tours.count > 0 ? (j render @tours) : "Ничего не найдено. попробуйте изменить параметры поиска." %>');
+$('#tours').attr('data-status', '<%= @status %>')
+<% if @load_more %>
+	$('.more-tours').removeClass('hidden');
+<% end %>
+<% if @tours.count == 0%>
+	$('#more-button').addClass('hidden');
+<%end%>
